@@ -1,0 +1,19 @@
+# (a) Number of compile threads
+ncompile_threads=4
+
+# (b) MPI compilers
+mpicxx=mpic++
+mpicc=mpicc
+
+# (c) GSL location
+gsl_location=$TACC_GSL_DIR
+
+# (d) FFTW locations (custom builds, feel free to try system ones)
+fftw2_location=/home1/00112/marcelo/fftw-2.1.5
+fftw3_location=/home1/00112/marcelo/fftw-3.3.3
+
+# (e) FITSIO location
+fts_location=/home1/00112/marcelo/cfitsio
+
+# Option flags
+OPT+=

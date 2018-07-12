@@ -1,0 +1,15 @@
+.hg*
+.hg/*
+machines
+machines/*
+makeauto.sh
+packtarball.sh
+clean
+push.sh
+pull.sh
+bin
+exclude
+Makefile
+src/Makefile
+scripts/Makefile
+

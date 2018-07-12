@@ -1,0 +1,19 @@
+# (a) Number of compile threads
+ncompile_threads=4
+
+# (b) MPI compilers
+mpicxx=mpiCC
+mpicc=mpicc
+
+# (c) GSL location
+gsl_location=/opt/gsl/1.15-intel-12.1.5
+
+# (d) FFTW locations (custom builds, feel free to try system ones)
+fftw2_location=/cita/h/home-1/malvarez/fftw-2.1.5
+fftw3_location=/cita/h/home-1/malvarez/fftw-3.3.3
+
+# (e) FITSIO location
+fts_location=/cita/h/home-1/malvarez/cfitsio
+
+# Option flags
+OPT+=

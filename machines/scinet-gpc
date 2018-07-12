@@ -1,0 +1,19 @@
+# (a) Number of compile threads
+ncompile_threads=8
+
+# (b) MPI compilers
+mpicxx=mpiCC
+mpicc=mpicc
+
+# (c) GSL location
+gsl_location=/scinet/gpc/Libraries/gsl-1.15-intel-12.1
+
+# (d) FFTW locations (custom builds for scinet-gpc with MXM)
+fftw2_location=/home/p/pen/malvarez/fftw-2.1.5
+fftw3_location=/home/p/pen/malvarez/fftw-3.3.3
+
+# (e) FITSIO location
+fts_location=/home/p/pen/malvarez/cfitsio
+
+# Option flags
+OPT+=

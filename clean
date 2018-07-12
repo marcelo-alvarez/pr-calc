@@ -1,0 +1,13 @@
+#!/bin/bash
+
+exe="delta2zreion ics allskymap flatskymap limber"
+
+rm -f bin/*
+rm -f src/*.o
+rm -rf src/.dep*
+rm -f example/ICs/delta
+rm -f example/output/*
+rm -f example/maps/*
+rm -f example/ps/*
+rm -f example/parameterfiles/*usedv*
+cd src; rm -f $exe

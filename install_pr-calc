@@ -1,0 +1,167 @@
+#!/bin/bash
+
+############################################################################
+#
+# Install script for pr-calc - this file should not be modified
+#
+############################################################################
+
+machine=$1
+
+if [ ! -e Settings.$machine ] ; then
+   echo
+   echo " Usage: ./install <machine> [<configure flags>]"
+   echo "   where Settings.<machine> contains settings for your machine"
+   echo "   see README for more details"
+   echo "   <configure flags> does not need to be specified unless"
+   echo "   installing in different location from this one"
+   echo "     e.g., "
+   echo "     ./install scinet-gpc --prefix=\$HOME"
+   echo "   will put the binaries in \$HOME/bin instead of ./bin" 
+   echo 
+   echo " File Settings.$machine does not exist, exiting."
+   echo 
+   exit 
+fi
+
+source Settings.$machine
+source scripts/banner.sh
+
+export CXX=$mpicxx
+export CC=$mpicc
+
+rfast_location=$PWD
+
+############################################################################
+#
+# Check for mandatory software (GSL and MPI)
+
+if [ ! -e $gsl_location ] || [ "${gsl_location:0:1}" != "/" ] ; then
+    echo "Invalid location of gsl: $gsl_location"
+    exit
+fi
+
+com=`which $mpicxx 2>/dev/null`
+if [ "${com:0:1}" != "/" ] ; then
+    echo "Invalid command for MPI C++ compiler: $mpicxx"
+    exit
+fi
+
+#
+############################################################################
+
+############################################################################
+# FFTW2 (Download and install if not found)
+
+if [ ! -e $fftw2_location ] || [ "${fftw2_location:0:1}" != "/" ] ; then
+
+    mybanner "Installing FFTW2"
+
+    cd $HOME
+    wget http://www.fftw.org/fftw-2.1.5.tar.gz
+    tar -zxvf fftw-2.1.5.tar.gz; rm -f fftw-2.1.5.tar.gz
+    cd fftw-2.1.5
+    ./configure --enable-float --enable-mpi --enable-type-prefix --prefix=$PWD
+    make install -j$ncompile_threads
+    fftw2_location=$HOME/fftw-3.3.3
+fi
+
+#
+############################################################################
+
+############################################################################
+#
+# FFTW3 (Download and install if not found)
+
+if [ ! -e $fftw3_location ] || [ "${fftw3_location:0:1}" != "/" ] ; then
+
+    mybanner "Installing FFTW2"
+
+    cd $HOME
+    wget http://www.fftw.org/fftw-3.3.3.tar.gz
+    tar -zxvf fftw-3.3.3.tar.gz; rm -f fftw-3.3.3.tar.gz
+    cd fftw-3.3.3
+    ./configure --enable-float --enable-mpi --prefix=$PWD
+    make install -j$ncompile_threads
+    fftw3_location=$HOME/fftw-3.3.3
+fi
+
+#
+############################################################################
+
+############################################################################
+#
+# FITSIO (Download and install if not found)
+
+if [ ! -e $fts_location ] || [ "${fts_location:0:1}" != "/" ] ; then
+
+    mybanner "Installing FITSIO"
+
+    cd $HOME
+    wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3340.tar.gz
+    tar -zxvf cfitsio3340.tar.gz ; rm -f cfitsio3340.tar.gz
+    cd cfitsio
+    ./configure --prefix=$PWD
+    make install -j$ncompile_threads
+    fts_location=$HOME/cfitsio
+
+fi
+
+#
+############################################################################
+
+############################################################################
+#
+# Set configure flags
+
+FFTW2_INC=$fftw2_location/include
+FFTW2_LIB=$fftw2_location/lib
+
+FFTW3_INC=$fftw3_location/include
+FFTW3_LIB=$fftw3_location/lib
+
+GSL_INC=$gsl_location/include
+GSL_LIB=$gsl_location/lib
+
+FTS_INC=$fts_location/include
+FTS_LIB=$fts_location/lib
+
+export LDFLAGS="-L$FFTW2_LIB -L$FFTW3_LIB -L$GSL_LIB -L$FTS_LIB"
+export CXXFLAGS="$CXXFLAGS -I$FFTW2_INC -I$FFTW3_INC -I$GSL_INC -I$FTS_INC -DENABLE_FITSIO $OPT"
+export CFLAGS="$CFLAGS -I$FFTW2_INC -I$FFTW3_INC -I$GSL_INC -I$FTS_INC -DENABLE_FITSIO $OPT"
+export LIBS="-lfftw3f_mpi -lfftw3f -lgsl -lgslcblas -lm -lsrfftw_mpi -lsfftw_mpi -lsrfftw -lsfftw -lcfitsio"
+
+#
+############################################################################
+
+############################################################################
+#
+# pr-calc compilation
+
+mybanner "Installing pr-calc"
+
+cd $rfast_location
+if [ $# -eq 1 ] ; then
+  ./configure --prefix=$PWD
+else
+  ./configure "$2"
+fi
+
+make clean
+make install -j$ncompile_threads
+
+#
+#
+############################################################################
+
+############################################################################
+#
+# Testing the source code
+
+cd $rfast_location/example
+./runexample.sh $ncompile_threads
+
+#
+#
+############################################################################
+
