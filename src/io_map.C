@@ -209,7 +209,7 @@ void ReadReionFile(char *fname)
   delete[] slab;
 
   if(myid==0) printf("\n Input data read...");
-  if(myid==0) printf("\n zreion mean = %f\n",zmean/N/N/N);
+  if(myid==0) printf("\n zreion mean = %f\n",zmean/N/N/Nlocal);
 
 }
 
