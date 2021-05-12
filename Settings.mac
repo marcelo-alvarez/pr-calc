@@ -1,0 +1,84 @@
+#!/bin/bash
+
+############################################################################
+#
+# Settings file for CITA Workstations (Settings.cita)
+# 
+############################################################################
+#
+# INSTRUCTIONS FOR CUSTOMIZING THIS FILE:
+#
+# (1) Copy the file
+# To create a settings file, copy this file and rename it:
+#   e.g. "Settings.my-machine"
+#
+# (2) Edit the file
+# Items (a-c) must be set
+# Items (d-e) set locations of mandatory packages
+#
+# If you don't have any of (d-e) leave variable blank (e.g. "fftw3_location=")
+# and those will be downloaded and installed for you in your home directory
+#
+#   (a)
+#   Set the number of compile threads
+#
+#   (b)
+#   Set the names of your MPI C/C++ compilers
+#     - MPI must be installed
+#
+#   (c)
+#   Set the location of GSL
+#     - GSL must be installed
+#
+#   (d) 
+#   Set the locations of fftw2 and fftw3:
+#     - If you don't have fftw2 and/or fftw3, they will be 
+#       downloaded and installed in your home directory (leave it blank)
+#
+#   (e) 
+#   Set the location of cfitsio
+#     - If you don't have cfitsio, it will be downloaded and
+#       installed in your home directory (leave it blank)
+#
+#   EXAMPLE:
+#
+#   (a) Number of compile threads
+#    ncompile_threads=4
+#   (b) MPI compilers
+#    mpicxx=mpiCC
+#    mpicc=mpicc
+#   (c) GSL location
+#    gsl_location=/usr/local/opt/gsl-1.15
+#   (d) FFTW locations
+#    fftw2_location=/usr/local/fftw-2.1.5
+#    fftw3_location=/usr/local/fftw-3.3.3
+#   (e) FITSIO location
+#    fts_location=$HOME/cfitsio
+#
+# (3) Add option flags (currently only -DDARWIN is supported)
+#
+#   EXAMPLE:
+#    
+#   OPT+="-DDARWIN" # necessary when compiling on a Mac
+#
+############################################################################
+
+# (a) Number of compile threads
+ncompile_threads=4
+
+# (b) MPI compilers
+mpicxx=mpiCC
+mpicc=mpicc
+
+# (c) GSL location
+gsl_location=/opt/gsl/1.15-intel-12.1.5
+
+# (d) FFTW locations (custom builds, feel free to try system ones)
+fftw2_location=/cita/h/home-1/malvarez/fftw-2.1.5
+fftw3_location=/cita/h/home-1/malvarez/fftw-3.3.3
+
+# (e) FITSIO location
+fts_location=/cita/h/home-1/malvarez/cfitsio
+
+# Option flags
+OPT+=
