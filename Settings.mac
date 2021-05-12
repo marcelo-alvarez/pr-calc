@@ -71,7 +71,7 @@ mpicxx=mpiCC
 mpicc=mpicc
 
 # (c) GSL location
-gsl_location=/usr/local/bin/gsl-config
+gsl_location=/usr/local/include/gsl
 
 # (d) FFTW locations (custom builds, feel free to try system ones)
 fftw2_location=/cita/h/home-1/malvarez/fftw-2.1.5
