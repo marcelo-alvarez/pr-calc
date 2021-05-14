@@ -98,7 +98,7 @@ if [ ! -e $fts_location ] || [ "${fts_location:0:1}" != "/" ] ; then
     mybanner "Installing FITSIO"
 
     cd $HOME
-    wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3340.tar.gz
+    #wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3340.tar.gz
     tar -zxvf cfitsio3340.tar.gz ; rm -f cfitsio3340.tar.gz
     cd cfitsio
     ./configure --prefix=$PWD
