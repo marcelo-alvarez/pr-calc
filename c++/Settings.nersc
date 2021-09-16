@@ -63,6 +63,7 @@
 #
 ############################################################################
 
+
 # (a) Number of compile threads
 ncompile_threads=4
 
@@ -71,7 +72,7 @@ mpicxx=CC
 mpicc=cc
 
 # (c) GSL location
-gsl_location=/global/common/sw/cray/sles12/x86_64/gsl/2.3/intel/17.0.2/klzza7k
+gsl_location=/global/common/sw/cray/cnl7/haswell/gsl/2.5/intel/19.0.3.199/7twqxxq
 
 # (d) FFTW locations (custom builds, feel free to try system ones)
 fftw2_location=/global/u2/m/malvarez/fftw-2.1.5/
@@ -82,3 +83,4 @@ fts_location=/global/u2/m/malvarez/cfitsio/
 
 # Option flags
 OPT+=
+

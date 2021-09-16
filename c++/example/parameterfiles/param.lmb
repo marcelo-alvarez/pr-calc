@@ -23,4 +23,5 @@ nz	        15
 
 # These parameters set the ell-spacing
 
-nl		40
+nl		20
+#40
