@@ -3,6 +3,11 @@
 bin=../bin
 nprocs=$1
 
+mmin=3e9
+zeta=100
+echo $mmin
+echo $zeta
+
 if [ ! $nprocs > 0 ] ; then
     echo "nprocs = $nprocs not > 0, exiting"
     exit
@@ -18,7 +23,8 @@ mybanner "Testing initial conditions"
 srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b 4e3 -n 2048 -v -s $seed
 
 mybanner "Testing delta2zreion"
-srun -n $nprocs $bin/delta2zreion parameterfiles/param.d2z -f test -m 3e9 -z 50 -r 300 -v
+python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/fcoll_zreion.py $mmin $zeta
+srun -n $nprocs $bin/delta2zreion parameterfiles/param.d2z -f test -m $mmin -z $zeta -r 300 -v
 
 mybanner "Testing all sky map"
 #srun -n $nprocs $bin/allskymap parameterfiles/param.asm -i test -o test -v
