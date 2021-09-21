@@ -1,6 +1,4 @@
 #!/bin/bash
-# sys.argv
-import sys
 
 bin=../bin
 
@@ -14,8 +12,6 @@ run=$5
 
 mmin=3e9
 zeta=100
-echo $mmin
-echo $zeta
 
 seed=25645
 pkfile=wmap5_0_m.pk
@@ -31,7 +27,7 @@ srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b $box -n
 #replace.pl NGRID_REPLACE $ngrid parameterfiles/param.d2z
 
 
-for mmin in $min; do
+for mmin in $mmin; do
         for zeta in $zeta; do
 		echo writing out zreion tables
 		python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/fcoll_zreion.py $mmin $zeta
