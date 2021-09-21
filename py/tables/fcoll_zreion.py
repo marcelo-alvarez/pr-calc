@@ -3,8 +3,6 @@
 
 # Imports
 
-# In[1]:
-
 import sys
 import numpy as np
 from colossus.cosmology import cosmology
@@ -18,9 +16,6 @@ import matplotlib.pyplot as plt
 
 # Variables + cosmology
 
-# In[2]:
-
-
 #we set our own cosmology
 #params         = {'flat': True, 'H0': 69.0, 'Om0': 0.2863, 'Ob0': 0.0463, 'sigma8': 0.82, 'ns': 0.96}  #Check this with pr-calc
 params         = {'flat': True, 'H0': 70.0, 'Om0': 0.27, 'Ob0': 0.044, 'sigma8': 0.8, 'ns': 0.96}
@@ -29,12 +24,10 @@ cosmo          = cosmology.setCosmology('myCosmo', params)
 h              = cosmo.H0 / 100.
 
 # Mmin and zeta
-#commenting these out since they will now be used in a bash script
 #Mmin           = 3E9 / h # in Msun (M in Colossus is in Msun/h) --------- This doesn't make M the same as in pr-calc anymore
-Mmin           = float(sys.argv[1])
+Mmin           = float(sys.argv[1]) / h
 print(Mmin)
-Mmax           = 1E15/ h  
-#zeta           = 100  
+Mmax           = 1E15/ h    
 zeta           = float(sys.argv[2])
 print(zeta)
 
@@ -60,10 +53,11 @@ fcoll_table    = np.zeros(nz)
 rho_Mpc        = 2.775E11 * cosmo.Om0 * h**2
  
 zvals          = np.linspace(zmin, zmax, nz)  # zvals will be approximately spaced at dz
-print(zvals)
+print(type(zvals), 'zvals')
 fcoll_table    = np.zeros((nz, nR, ndelta_R)) # holds all the collapsed fractions
 
 uncond_fcoll   = np.zeros(len(zvals))
+print(type(uncond_fcoll), 'check')
 uncond_fcollPS = np.zeros(len(zvals))
 
 # meshgrids for independent variables
@@ -90,9 +84,6 @@ plt.rcParams['figure.figsize'] = [12, 8]
 
 # Function to compute PS conditional fcoll
 
-# In[3]:
-
-
 # function for fcoll = PS conditional collapsed fraction (ccfPS)
 def ccfPS(z, R, delta_R):
     delta_c   = peaks.collapseOverdensity(corrections = True,z = z)
@@ -105,9 +96,6 @@ ccfPS = np.vectorize(ccfPS)
 
 
 # Function to compute unconditional fcoll from colossus for a given hmf model and mass definition
-
-# In[4]:
-
 
 def integrand(lnM, rho_Mpc, redshift, model, mdef):
     '''
@@ -137,9 +125,6 @@ ucf = np.vectorize(ucf)
 
 # Function to compute conditional fcoll using equation 3 from overleaf
 
-# In[5]:
-
-
 def ccf(z, R, delta_R, ucf_func, ucfPS_func):
     # eqn 3 from overleaf 
     # cond_fcoll(z,R,delta_R) = uncond_fcoll(z) / uncond_fcollPS * cond_fcollPS
@@ -148,16 +133,14 @@ def ccf(z, R, delta_R, ucf_func, ucfPS_func):
 
 # Function to compute reionization redshift at a given radius and density contrast
 
-# In[6]:
-
-
-def zreion(R, delta_R, ucf_func, ucfPS_func, zeta, zvals):
-    print(zeta, zvals)
+def zreion(R, delta_R, ucf_func, ucfPS_func, zeta):
+    print(zeta)
     # note zvals is a global variable!!!
     fcoll_zvals = ccf(zvals,R,delta_R,ucf_func, ucfPS_func)
     print(type(fcoll_zvals))
     print(type(zeta))
-    print(type(zvals))
+    print(type(zvals), 'this should be an array')
+    print(type(R))
     zeta_times_fcoll_zvals = zeta * fcoll_zvals
     z_of_zeta_times_fcoll = interp1d(zeta_times_fcoll_zvals, zvals, fill_value="extrapolate")
     print(type(zeta_times_fcoll_zvals))
@@ -168,10 +151,6 @@ zreion = np.vectorize(zreion)
 
 
 # Populate collapsed fraction tables and set up collapsed fraction interpolation tables
-
-# In[7]:
-
-
 # tables for fcoll(z)
 #   these are the unconditional collapsed fractions for PS 
 #   as well as that for the specified hmf model
@@ -183,26 +162,15 @@ ucfPS_interp   = interp1d(zvals, uncond_fcollPS)
 
 # Populate zreion table
 
-# In[8]:
-
-
 # table for zreion(R,delta_R)
 #   this is the reionization redshift at a given overdensity and scale 
 #   from the condition
 #   zeta * fcoll(R,delta_R,zreion) = 1
 print(zvals, 'this is where I am')
-zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zeta, zvals).astype(np.float32)
-
-
-
-#for i in range(len(zetavals)):
-#    zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zetavals[i]).astype(np.float32)
-
+print(type(Rvals2d))
+zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zeta).astype(np.float32)
 
 # Write tables in binaries with minimal headers easily readable in C
-
-# In[9]:
-
 
 # fcoll(z) (unconditional mass function)  ......why writing the unconditional to file?
 fcoll_tablefile='fcoll_Mmin'+str(Mmin)+'_Zeta'+str(zeta)+'_'+str(hmf_model)+'.tab'
@@ -216,7 +184,6 @@ fcoll_table.tofile(f)
 f.close()
 
 # zreion(R,delta_R) (reionization redshifts) 
-#for i in range(len(zetavals)):
 zreion_tablefile='zreion_zeta'+str(zeta)+'_Mmin'+str(Mmin)+'_'+str(hmf_model)+'.tab'
 f = open(zreion_tablefile,'wb')
 ranges = [Rvalsmin,Rvalsmax,delta_Rmin,delta_Rmax]
@@ -230,9 +197,6 @@ f.close()
 
 
 # Done with table generation. Functions below are for reading tables and testing results.
-
-# In[10]:
-
 
 # function to read zreion table
 def read_zreiontable(fname):
@@ -260,8 +224,8 @@ def plot_zreion_from_table(fname):
     plt.xscale('log')
     plt.xlabel('R [Mpc]',fontsize=20)
     plt.ylabel(r'$z_{\rm reion}$',fontsize=20)
-    #plt.savefig('zreion.png',bbox_inches='tight')
-    plt.show()
+    plt.savefig('zreion.png',bbox_inches='tight')
+    #plt.show()
     print('zreion should increase towards higher R and delta_R')
     print('this is not an exhaustive test, just a single quick check')
     
@@ -286,8 +250,18 @@ def show_zreion_from_table(fname):
     _cont = ax.contour(np.transpose(zreion_table),levels=np.linspace(4,20, 10), colors='white', alpha=0.5,
                origin='lower',extent=[np.log10(Rrange[0]),np.log10(Rrange[1]),deltaRrange[0],deltaRrange[1]])
     cb.add_lines(_cont)
-    plt.show()
+    #plt.show()
+    plt.savefig('zreion2.png',bbox_inches='tight')
     print('zreion should increase towards higher R and delta_R')
     print('this is not an exhaustive test, just a single quick check')
 
 #I don't think we neeed the plots in here???
+#added them again for test
+
+#Look at zreion table
+
+plot_zreion_from_table(zreion_tablefile)
+
+show_zreion_from_table(zreion_tablefile)
+
+
