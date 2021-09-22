@@ -2,7 +2,7 @@
 
 bin=../bin
 
-source ../scripts/banner.sh
+source ../../scripts/banner.sh
 
 box=$1
 ngrid=$2

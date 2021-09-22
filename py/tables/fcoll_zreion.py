@@ -13,23 +13,19 @@ from scipy.integrate import quad
 from colossus.lss import mass_function
 import matplotlib.pyplot as plt
 
-
 # Variables + cosmology
 
 #we set our own cosmology
 #params         = {'flat': True, 'H0': 69.0, 'Om0': 0.2863, 'Ob0': 0.0463, 'sigma8': 0.82, 'ns': 0.96}  #Check this with pr-calc
 params         = {'flat': True, 'H0': 70.0, 'Om0': 0.27, 'Ob0': 0.044, 'sigma8': 0.8, 'ns': 0.96}
 cosmo          = cosmology.setCosmology('myCosmo', params)
-
 h              = cosmo.H0 / 100.
 
 # Mmin and zeta
-#Mmin           = 3E9 / h # in Msun (M in Colossus is in Msun/h) --------- This doesn't make M the same as in pr-calc anymore
+#Mmin in Msun (M in Colossus is in Msun/h) --------- This doesn't make M the same as in pr-calc anymore
 Mmin           = float(sys.argv[1]) / h
-print(Mmin)
 Mmax           = 1E15/ h    
 zeta           = float(sys.argv[2])
-print(zeta)
 
 # create grid of delta_R and R and the zreion table
 # can mess with the grid later but an initial guess follows
@@ -53,11 +49,9 @@ fcoll_table    = np.zeros(nz)
 rho_Mpc        = 2.775E11 * cosmo.Om0 * h**2
  
 zvals          = np.linspace(zmin, zmax, nz)  # zvals will be approximately spaced at dz
-print(type(zvals), 'zvals')
 fcoll_table    = np.zeros((nz, nR, ndelta_R)) # holds all the collapsed fractions
 
 uncond_fcoll   = np.zeros(len(zvals))
-print(type(uncond_fcoll), 'check')
 uncond_fcollPS = np.zeros(len(zvals))
 
 # meshgrids for independent variables
@@ -134,18 +128,11 @@ def ccf(z, R, delta_R, ucf_func, ucfPS_func):
 # Function to compute reionization redshift at a given radius and density contrast
 
 def zreion(R, delta_R, ucf_func, ucfPS_func, zeta):
-    print(zeta)
     # note zvals is a global variable!!!
     fcoll_zvals = ccf(zvals,R,delta_R,ucf_func, ucfPS_func)
-    print(type(fcoll_zvals))
-    print(type(zeta))
-    print(type(zvals), 'this should be an array')
-    print(type(R))
     zeta_times_fcoll_zvals = zeta * fcoll_zvals
     z_of_zeta_times_fcoll = interp1d(zeta_times_fcoll_zvals, zvals, fill_value="extrapolate")
-    print(type(zeta_times_fcoll_zvals))
     zreion = z_of_zeta_times_fcoll(1.0)
-    #print(zeta, zvals)
     return zreion
 zreion = np.vectorize(zreion)
 
@@ -166,8 +153,6 @@ ucfPS_interp   = interp1d(zvals, uncond_fcollPS)
 #   this is the reionization redshift at a given overdensity and scale 
 #   from the condition
 #   zeta * fcoll(R,delta_R,zreion) = 1
-print(zvals, 'this is where I am')
-print(type(Rvals2d))
 zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zeta).astype(np.float32)
 
 # Write tables in binaries with minimal headers easily readable in C
