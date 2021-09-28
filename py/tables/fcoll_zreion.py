@@ -23,18 +23,21 @@ h              = cosmo.H0 / 100.
 
 # Mmin and zeta
 #Mmin in Msun (M in Colossus is in Msun/h) --------- This doesn't make M the same as in pr-calc anymore
-Mmin           = float(sys.argv[1]) / h
-Mmax           = 1E15/ h    
+
+Mmin           = (float(sys.argv[1]) * h) / h
+print(Mmin, 'python code')
+Mmax           = (1E15 * h)/ h    
 zeta           = float(sys.argv[2])
 
 # create grid of delta_R and R and the zreion table
 # can mess with the grid later but an initial guess follows
-nR             = 32
-ndelta_R       = 33 # odd ndelta_R for a delta_R=0 entry with symmetric range
+nR             = 100
+ndelta_R       = 101 # odd ndelta_R for a delta_R=0 entry with symmetric range
 Rvalsmin       = 1.0
 Rvalsmax       = 1e3
 delta_Rmin     = -1
 delta_Rmax     =  1
+#R should be in Msun/h. I'm not sure we have done that
 Rvals          = np.logspace(np.log10(Rvalsmin), np.log10(Rvalsmax), nR)
 delta_Rvals    = np.linspace(delta_Rmin, delta_Rmax, ndelta_R)
 zreion_table   = np.zeros((nR, ndelta_R))
