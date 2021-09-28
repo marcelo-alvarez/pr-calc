@@ -1,6 +1,6 @@
 # Box size, dimension, and redshift of input density field
 
-BoxSize		8e3 # comoving box size in Mpc/h
+BoxSize		4e3 # comoving box size in Mpc/h
 N		512 # dimension of the grid
 zInit		0  # redshift of the initial density contrast field
 
