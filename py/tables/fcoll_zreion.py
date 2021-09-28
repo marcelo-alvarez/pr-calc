@@ -158,7 +158,7 @@ zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zeta).as
 # Write tables in binaries with minimal headers easily readable in C
 
 # fcoll(z) (unconditional mass function)  ......why writing the unconditional to file?
-fcoll_tablefile='fcoll_Mmin'+str(Mmin)+'_Zeta'+str(zeta)+'_'+str(hmf_model)+'.tab'
+fcoll_tablefile='fcoll_table.tab'
 f = open(fcoll_tablefile,'wb')
 zrange       = np.asarray([zvals[0],zvals[-1]]).astype(np.float32)
 dim          = np.asarray([len(zvals)]).astype(np.int32)
@@ -169,7 +169,7 @@ fcoll_table.tofile(f)
 f.close()
 
 # zreion(R,delta_R) (reionization redshifts) 
-zreion_tablefile='zreion_zeta'+str(zeta)+'_Mmin'+str(Mmin)+'_'+str(hmf_model)+'.tab'
+zreion_tablefile='zreion_table.tab'
 f = open(zreion_tablefile,'wb')
 ranges = [Rvalsmin,Rvalsmax,delta_Rmin,delta_Rmax]
 ranges = np.asarray(ranges).astype(np.float32)
@@ -245,8 +245,8 @@ def show_zreion_from_table(fname):
 
 #Look at zreion table
 
-plot_zreion_from_table(zreion_tablefile)
+#plot_zreion_from_table(zreion_tablefile)
 
-show_zreion_from_table(zreion_tablefile)
+#show_zreion_from_table(zreion_tablefile)
 
 
