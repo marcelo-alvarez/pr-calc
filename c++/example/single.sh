@@ -21,5 +21,4 @@ mybanner "Testing all sky map"
 #srun -n $nprocs $bin/allskymap parameterfiles/param.asm -i $base -o $base
 
 mybanner "Testing flat sky map"
-srun -n $nprocs $bin/flatskymap parameterfiles/param.fsm -i $base -o $base -v
-~                                                                              
+srun -n $nprocs $bin/flatskymap parameterfiles/param.fsm -i $base -o $base -v  

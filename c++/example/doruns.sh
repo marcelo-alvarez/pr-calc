@@ -10,9 +10,6 @@ nprocs=$3
 zmin=$4
 run=$5
 
-mmin=3e9
-zeta=100
-
 seed=25645
 pkfile=wmap5_0_m.pk
 
@@ -27,8 +24,8 @@ srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b $box -n
 #replace.pl NGRID_REPLACE $ngrid parameterfiles/param.d2z
 
 
-for mmin in $mmin; do
-        for zeta in $zeta; do
+for mmin in 2e9 3e9 4e9; do
+        for zeta in 50 75 100; do
 		echo writing out zreion tables
 		python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/fcoll_zreion.py $mmin $zeta
 		for lambda in 200 300 400; do

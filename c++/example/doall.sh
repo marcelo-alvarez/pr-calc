@@ -16,13 +16,10 @@ export OMP_NUM_THREADS=1
 #import sys
 module load python
 module load gsl
-#openmpi
 
 box=4e3
 ngrid=2048
 nprocs=256
-#64
-#256
 zmax=15
 run=$box\_$ngrid
 
