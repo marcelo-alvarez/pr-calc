@@ -22,11 +22,11 @@ cosmo          = cosmology.setCosmology('myCosmo', params)
 h              = cosmo.H0 / 100.
 
 # Mmin and zeta
-#Mmin in Msun (M in Colossus is in Msun/h) --------- This doesn't make M the same as in pr-calc anymore
+#Mmin in Msun
 
-Mmin           = (float(sys.argv[1]) * h) / h
-print(Mmin, 'python code')
-Mmax           = (1E15 * h)/ h    
+Mmin           = float(sys.argv[1]) 
+print(Mmin, 'Mmin value as used in the python code')
+Mmax           = 1E15     
 zeta           = float(sys.argv[2])
 
 # create grid of delta_R and R and the zreion table
@@ -63,7 +63,7 @@ zvals3d, Rvals3d, delta_Rvals3d = np.meshgrid(zvals,   Rvals,   delta_Rvals, ind
 
 # convert Mmin to Rmin
 Rmin_Mpc       = (3*Mmin/4/np.pi/rho_Mpc)**(1./3.)   #R=(3M/4 pi)**1/3
-Rmin           = Rmin_Mpc*h # Rmin is used by colussus and is in Mpc/h (multiply by )
+Rmin           = Rmin_Mpc*h # Rmin is used by colussus and is in Msun/h
 
 dRzero_index   = int((ndelta_R+1)/2)-1
 
@@ -84,7 +84,7 @@ plt.rcParams['figure.figsize'] = [12, 8]
 # function for fcoll = PS conditional collapsed fraction (ccfPS)
 def ccfPS(z, R, delta_R):
     delta_c   = peaks.collapseOverdensity(corrections = True,z = z)
-    sigma_R   = cosmo.sigma(R, z)  #R in Mpc/h
+    sigma_R   = cosmo.sigma(R, z)  #R in Mpc/h. MI I'm not sure R is in Msun/h yet
     sigma_min = cosmo.sigma(Rmin, z) #Rmin in Mpc/h
     arg       = ((delta_c - delta_R) / (np.sqrt(2.*sigma_min**2 - sigma_R**2)))
     f         = erfc(arg)
@@ -100,12 +100,12 @@ def integrand(lnM, rho_Mpc, redshift, model, mdef):
     '''
     h  = cosmo.H0 / 100. 
     M  = np.exp(lnM)     # input mass assumed to be in Msun
-    M *= h               # convert from Msun to Msun/h for Colussus
+    M /= h               # convert from Msun to Msun/h for Colussus
     
     dndlnM = mass_function.massFunction(M, redshift, mdef = mdef, model = model, q_out = 'dndlnM')
 
     dndlnM *= h**3 # convert mass function from 1/(Mpc/h)^3 to 1/Msun/Mpc^3
-    M      /= h    # convert mass back to Msun from Msun/h 
+    M      *= h    # convert mass back to Msun from Msun/h 
     
     dfcolldlnM = 1/rho_Mpc * M * dndlnM   # convert dfcoll/dlnM = 1/rho*M*dn/dlnM
 
