@@ -22,10 +22,9 @@ cosmo          = cosmology.setCosmology('myCosmo', params)
 h              = cosmo.H0 / 100.
 
 # Mmin and zeta
-#Mmin in Msun
 
-Mmin           = float(sys.argv[1]) 
-print(Mmin, 'Mmin value as used in the python code')
+Mmin_Msun      = float(sys.argv[1]) #Mmin in Msun
+print(Mmin_Msun, 'Mmin value as used in the python code')
 Mmax           = 1E15     
 zeta           = float(sys.argv[2])
 
@@ -62,7 +61,7 @@ Rvals2d, delta_Rvals2d          = np.meshgrid(Rvals,   delta_Rvals, indexing='ij
 zvals3d, Rvals3d, delta_Rvals3d = np.meshgrid(zvals,   Rvals,   delta_Rvals, indexing='ij')
 
 # convert Mmin to Rmin
-Rmin_Mpc       = (3*Mmin/4/np.pi/rho_Mpc)**(1./3.)   #R=(3M/4 pi)**1/3
+Rmin_Mpc       = (3*Mmin_Msun/4/np.pi/rho_Mpc)**(1./3.)   #R=(3M/4 pi)**1/3
 Rmin           = Rmin_Mpc*h # Rmin is used by colussus and is in Msun/h
 
 dRzero_index   = int((ndelta_R+1)/2)-1
@@ -114,7 +113,7 @@ def integrand(lnM, rho_Mpc, redshift, model, mdef):
 def ucf(z,hmf_model,hmf_mdef):
     # integrate hmf to obtain collapsed fraction 
     from scipy import integrate
-    uncond_fcoll,   err = quad(integrand, np.log(Mmin), np.log(Mmax), 
+    uncond_fcoll,   err = quad(integrand, np.log(Mmin_Msun), np.log(Mmax), 
                                 args=(rho_Mpc, z, hmf_model, hmf_mdef))
     return uncond_fcoll
 ucf = np.vectorize(ucf)
