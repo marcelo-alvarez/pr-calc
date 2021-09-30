@@ -1,0 +1,32 @@
+# Cosmological parameters
+Omegam        XX
+Omegal        XX
+Omegab        XX
+h             XX
+ns            XX
+sigma8        XX
+w             XX
+	
+# Box size, dimension, and redshift of input density field
+
+BoxSize         XX
+N               XX
+zInit           XX
+# This is the Reionization redshift file location.
+# The file should be the reionization field
+
+DeltaFile	./ICs/delta
+
+# These are the parameters describing the map of tau
+
+fov	    	20  # field of view in degrees
+theta		30   # polar angle of center of map in degrees
+phi		30    # azimuthal angle of center of map in degrees
+NPixels		2048  # number of pixels per dimension in map
+NSide		1024 # Healpix N_side parameter
+
+# The parameters are for the actual raytracing
+
+NRedshifts       10000
+InitialRedshift  5.5
+FinalRedshift    15
