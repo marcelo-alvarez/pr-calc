@@ -5,24 +5,25 @@
 
 import sys
 import numpy as np
-from colossus.cosmology import cosmology
+#from colossus.cosmology import cosmology
 from colossus.lss import peaks
 from scipy.special import erfc
 from scipy.interpolate import interp1d
 from scipy.integrate import quad
 from colossus.lss import mass_function
 import matplotlib.pyplot as plt
-#sys.path.append("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/")
+sys.path.append("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/")
 
+python setCosmology.py
 #import /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/setCosmology
 #import setCosmology
 # Variables + cosmology
 
 #we set our own cosmology
 #params         = {'flat': True, 'H0': 69.0, 'Om0': 0.2863, 'Ob0': 0.0463, 'sigma8': 0.82, 'ns': 0.96}  #Check this with pr-calc
-params         = {'flat': True, 'H0': 70.0, 'Om0': 0.27, 'Ob0': 0.044, 'sigma8': 0.8, 'ns': 0.96}
-cosmo          = cosmology.setCosmology('myCosmo', params)
-h              = cosmo.H0 / 100.
+#params         = {'flat': True, 'H0': 70.0, 'Om0': 0.27, 'Ob0': 0.044, 'sigma8': 0.8, 'ns': 0.96}
+#cosmo          = cosmology.setCosmology('myCosmo', params)
+#h              = cosmo.H0 / 100.
 
 # Mmin and zeta
 
