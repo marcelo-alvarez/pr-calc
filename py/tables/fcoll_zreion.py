@@ -12,7 +12,10 @@ from scipy.interpolate import interp1d
 from scipy.integrate import quad
 from colossus.lss import mass_function
 import matplotlib.pyplot as plt
+#sys.path.append("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/")
 
+#import /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/setCosmology
+#import setCosmology
 # Variables + cosmology
 
 #we set our own cosmology

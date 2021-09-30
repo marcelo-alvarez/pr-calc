@@ -1,4 +1,6 @@
 #!/bin/bash
+#!/usr/bin/python
+
 module load python
 module load gsl
 
@@ -15,6 +17,8 @@ if [ ! $nprocs > 0 ] ; then
 fi
 
 source ../../scripts/banner.sh
+python setCosmology.py
+
 seed=18937
 pkfile=wmap5_0_m.pk
 
@@ -22,6 +26,7 @@ mybanner "RFAST TEST WITH NPROCS = $nprocs"
 
 mybanner "Testing initial conditions"
 srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b 4e3 -n 512 -v -s $seed
+#srun -n $nprocs $bin/ics parameterfiles/all_param.files -p $pkfile -o delta -b 4e3 -n 512 -v -s $seed
 
 mybanner "Testing delta2zreion"
 echo writing out zreion tables 

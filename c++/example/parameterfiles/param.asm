@@ -1,10 +1,10 @@
 # Cosmological parameters
-Omegam        0.27
-Omegal        0.73
-Omegab        0.044
-h             0.7
-ns            0.96
-sigma8        0.8
+Omegam        cosmo.Om0   				#0.27
+Omegal        1-cosmo.Om0   				#0.73
+Omegab        cosmo.Ob0   				#0.044
+h             cosmo.H0 / 100   				#0.7
+ns            cosmo.ns    				#0.96
+sigma8        cosmo.sigma8				#0.8
 w             -1
 	
 # Box size, dimension, and redshift of input density field
