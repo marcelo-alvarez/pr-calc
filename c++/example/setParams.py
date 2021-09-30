@@ -2,6 +2,9 @@ import json
 import numpy as np
 import pickle
 import sys
+''' This file sets the colossus parameters and writes the param files for pr-calc. It requires a global parameter ini file and is run as:
+
+python setParams.py globalParams.ini '''
 
 
 inifile=open(sys.argv[1], 'r')
@@ -24,6 +27,7 @@ for line in lines:
             names.append(name)
 
 
+print('The names of all parameters in the global file are:')
 print(names)
 
 
@@ -45,7 +49,6 @@ for line in icslines:
     else:
         for paramnum in paramnums_ics:
             line.replace('XX', params[paramnum])
-            print(line)
         ics_out.write(line)
         ics_out.write('\n')
 
@@ -90,7 +93,6 @@ for line in d2zlines:
 
         else:
             line=line   
-        print(line)
         d2z_out.write(line)
         d2z_out.write('\n')
         
