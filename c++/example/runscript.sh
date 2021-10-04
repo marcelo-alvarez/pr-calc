@@ -17,10 +17,14 @@ if [ ! $nprocs > 0 ] ; then
 fi
 
 source ../../scripts/banner.sh
-#python setCosmology.py
+#set cosmo params and params for d2z, fsm, ics etc
+python setParams.py globalParams.ini
 
 seed=18937
-pkfile=wmap5_0_m.pk
+#Generate p(k) based on the cosmo params set above
+python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py
+#read in p(k)
+pkfile=pk.tab   #wmap5_0_m.pk   #new pk file is pk.tab
 
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 

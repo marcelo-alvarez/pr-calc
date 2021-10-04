@@ -51,6 +51,10 @@ for line in icslines:
         if(len(splitline)==2):
             if(splitline[0]=='h'):
                 line=' '.join([splitline[0], '  ', params[2]])
+            if(splitline[0]=='BoxSize'):
+                line=' '.join([splitline[0], '  ', params[8]])
+            if(splitline[0]=='N'):
+                line=' '.join([splitline[0], '  ', params[9]])
         else:
             line=line   
         ics_out.write(line)
