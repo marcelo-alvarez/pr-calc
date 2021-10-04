@@ -1,34 +1,49 @@
-source ..
 # Cosmological parameters
-Omegam        cosmo.Om0
-Omegal        1-cosmo.Om0
-Omegab        cosmo.Ob0
-#h             0.7
-ns            cosmo.ns
-Sigma8        cosmo.sigma8
-w             -1
+Omegam    0.27
+Omegal    0.73
+Omegab    0.044
+h    0.75
+ns    0.96
+Sigma8    0.8
+w    -1
+
 
 # Box size, dimension, and redshift of input density field
 
-BoxSize		4e3 # comoving box size in Mpc/h
-N		512  #2048 # dimension of the grid
-zInit		0
+
+BoxSize    1e3
+# comoving box size in Mpc/h
+N    512
+#2048 # dimension of the grid
+zInit    0
+
 
 # This is the Reionization redshift file location.
 # The file should be the reionization field
 
+
 DeltaFile	./ICs/delta
+
+
 
 # These are the parameters describing the map of tau
 
-fov	    	20 #30   # field of view in degrees
-theta		30    # polar angle of center of map in degrees
-phi		30     # azimuthal angle of center of map in degrees
-NPixels		2048  # number of pixels per dimension in map
+
+fov    20
+#30   # field of view in degrees
+theta    30
+# polar angle of center of map in degrees
+phi    30
+# azimuthal angle of center of map in degrees
+NPixels    2048
+# number of pixels per dimension in map
+
 
 # The parameters are for the actual raytracing
 
-NRedshifts	 10000
-InitialRedshift  5.5
+
+NRedshifts    10000
+InitialRedshift    5.5
 FinalRedshift    15
+
 

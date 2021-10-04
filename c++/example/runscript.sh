@@ -17,7 +17,7 @@ if [ ! $nprocs > 0 ] ; then
 fi
 
 source ../../scripts/banner.sh
-python setCosmology.py
+#python setCosmology.py
 
 seed=18937
 pkfile=wmap5_0_m.pk

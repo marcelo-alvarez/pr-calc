@@ -1,27 +1,40 @@
 # Box size, dimension, and redshift of input density field
 
-BoxSize		4e3 # comoving box size in Mpc/h
-N		512 # dimension of the grid
-zInit		0  # redshift of the initial density contrast field
+
+BoxSize    1e3
+# comoving box size in Mpc/h
+N    512
+# dimension of the grid
+zInit    0
+# redshift of the initial density contrast field
+
 
 # This is the density contrast file location.
 # The file should be the density contrast field
 
+
 DeltaFile	./ICs/delta
+
+
 
 # These are the parameters describing the power spectrum
 
-kmin	    	1e-3
-kmax		0.2
-nk		50
+
+kmin    1e-3
+kmax    0.2
+nk    50
+
 
 # These are the parameters describing the Limber integral bounds and points
 
-zmin	        3
-zmax		15
-nz	        15
+
+zmin    3
+zmax    15
+nz    15
+
 
 # These parameters set the ell-spacing
 
-nl		20
+
+nl    20
 #40

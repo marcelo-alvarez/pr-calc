@@ -1,8 +1,8 @@
-source ..
 # Cosmological parameters
 Omegam        XX
 Omegal        XX
 Omegab        XX
+h 	      XX	
 ns            XX
 Sigma8        XX
 w             XX
