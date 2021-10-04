@@ -25,7 +25,7 @@ pkfile=wmap5_0_m.pk
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 
 mybanner "Testing initial conditions"
-srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b 4e3 -n 512 -v -s $seed
+srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b 1e3 -n 512 -v -s $seed
 #srun -n $nprocs $bin/ics parameterfiles/all_param.files -p $pkfile -o delta -b 4e3 -n 512 -v -s $seed
 
 mybanner "Testing delta2zreion"
