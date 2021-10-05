@@ -24,13 +24,13 @@ seed=18937
 #Generate p(k) based on the cosmo params set above
 python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py
 #read in p(k)
-pkfile=pk.tab   #wmap5_0_m.pk   #new pk file is pk.tab
+#Still need to read in thee new pk file
+pkfile=wmap5_0_m.pk   #new pk file is pk.tab
 
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 
 mybanner "Testing initial conditions"
 srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b 1e3 -n 512 -v -s $seed
-#srun -n $nprocs $bin/ics parameterfiles/all_param.files -p $pkfile -o delta -b 4e3 -n 512 -v -s $seed
 
 mybanner "Testing delta2zreion"
 echo writing out zreion tables 
