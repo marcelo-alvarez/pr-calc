@@ -23,7 +23,6 @@ print(b["flat"])
 # Variables + cosmology
 
 #we set our own cosmology
-params         = {'flat': True, 'H0': 70.0, 'Om0': 0.27, 'Ob0': 0.044, 'sigma8': 0.8, 'ns': 0.96}
 params         = {'flat': b["flat"], 'H0': float(b["H0"]), 'Om0': float(b["Om0"]), 'Ob0': float(b["Ob0"]), 'sigma8': float(b["sigma8"]), 'ns': 0.96}
 cosmo          = cosmology.setCosmology('myCosmo', params)
 h              = cosmo.H0 / 100.
@@ -53,7 +52,7 @@ dz             = 0.5
 zmin           = 0.0 # just for completeness
 zmax           = 20  # most reionization models we don't care about z>20 
 nz             = int((zmax - zmin) / dz)
-fcoll_table    = np.zeros(nz)
+#fcoll_table    = np.zeros(nz)
 
 rho_Mpc        = 2.775E11 * cosmo.Om0 * h**2
  
@@ -106,12 +105,12 @@ def integrand(lnM, rho_Mpc, redshift, model, mdef):
     '''
     h  = cosmo.H0 / 100. 
     M  = np.exp(lnM)     # input mass assumed to be in Msun
-    M /= h               # convert from Msun to Msun/h for Colussus
+    M *= h               # convert from Msun to Msun/h for Colussus
     
     dndlnM = mass_function.massFunction(M, redshift, mdef = mdef, model = model, q_out = 'dndlnM')
 
     dndlnM *= h**3 # convert mass function from 1/(Mpc/h)^3 to 1/Msun/Mpc^3
-    M      *= h    # convert mass back to Msun from Msun/h 
+    M      /= h    # convert mass back to Msun from Msun/h 
     
     dfcolldlnM = 1/rho_Mpc * M * dndlnM   # convert dfcoll/dlnM = 1/rho*M*dn/dlnM
 
