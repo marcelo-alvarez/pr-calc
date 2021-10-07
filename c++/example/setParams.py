@@ -2,6 +2,8 @@ import json
 import numpy as np
 import pickle
 import sys
+import subprocess
+import os
 ''' This file sets the colossus parameters and writes the param files for pr-calc. It requires a global parameter ini file and is run as:
 
 python setParams.py globalParams.ini '''
@@ -29,8 +31,6 @@ for line in lines:
 
 print('The names of all parameters in the global file are:')
 print(names, params)
-
-
 #Set cosmology
 cosmoparams = {names[i]:params[i] for i in range(7)}
 with open('parameterfiles/param.col', 'wb') as handle:
@@ -51,17 +51,26 @@ for line in icslines:
         if(len(splitline)==2):
             if(splitline[0]=='h'):
                 line=' '.join([splitline[0], '  ', params[2]])
-            if(splitline[0]=='BoxSize'):
-                line=' '.join([splitline[0], '  ', params[8]])
-            if(splitline[0]=='N'):
-                line=' '.join([splitline[0], '  ', params[9]])
+        
         else:
             line=line   
         ics_out.write(line)
         ics_out.write('\n')
         
 ics_out.close()
+cmd="export BOXSIZE=%s"%params[8]
+subprocess.call(cmd, shell=True)
+print(cmd)
+cmd="echo $BOXSIZE"
+subprocess.call(cmd, shell=True)
+print(cmd)
+cmd="export N=%s"%params[9]
+subprocess.call(cmd, shell=True)
+print(cmd)
 
+cmd="echo $N"
+subprocess.call(cmd, shell=True)
+print(cmd)
 # Set ics
 d2z = open('parameterfiles/tempParam.d2z', 'r')
 d2zlines = d2z.readlines()
