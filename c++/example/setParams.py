@@ -91,7 +91,7 @@ for line in d2zlines:
                 line=' '.join([splitline[0], '  ', params[3]])
             if(splitline[0]=='h'):
                 line=' '.join([splitline[0], '  ', params[2]])
-            if(splitline[0]=='sigma8'):
+            if(splitline[0]=='sigma8') or (splitline[0]=='Sigma8'):
                 line=' '.join([splitline[0], '  ', params[5]])
             if(splitline[0]=='ns'):
                 line=' '.join([splitline[0], '  ', params[6]])
@@ -103,7 +103,6 @@ for line in d2zlines:
                 line=' '.join([splitline[0], '  ', params[9]])
             if(splitline[0]=='zInit'):
                 line=' '.join([splitline[0], '  ', params[10]])
-
             if(splitline[0]=='Rmin'):
                 line=' '.join([splitline[0], '  ', params[19]])
             if(splitline[0]=='Nscales'):
@@ -136,8 +135,8 @@ for line in fsmlines:
                 line=' '.join([splitline[0], '  ', params[3]])
             if(splitline[0]=='h'):
                 line=' '.join([splitline[0], '  ', params[2]])
-            if(splitline[0]=='Sigma8'):
-                line=' '.join([splitline[0], '  ', params[28]])
+            if(splitline[0]=='sigma8') or (splitline[0]=='Sigma8'):
+                line=' '.join([splitline[0], '  ', params[5]])
             if(splitline[0]=='ns'):
                 line=' '.join([splitline[0], '  ', params[6]])
             if(splitline[0]=='w'):
@@ -159,9 +158,9 @@ for line in fsmlines:
             if(splitline[0]=='phi'):
                 line=' '.join([splitline[0], '  ', params[16]])
             if(splitline[0]=='InitialRedshift'):
-                line=' '.join([splitline[0], '  ', params[29]])
+                line=' '.join([splitline[0], '  ', params[28]])
             if(splitline[0]=='FinalRedshift'):
-                line=' '.join([splitline[0], '  ', params[30]])
+                line=' '.join([splitline[0], '  ', params[29]])
 
         else:
             line=line
