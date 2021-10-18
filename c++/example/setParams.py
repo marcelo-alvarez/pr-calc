@@ -58,19 +58,33 @@ for line in icslines:
         ics_out.write('\n')
         
 ics_out.close()
-cmd="export BOXSIZE=%s"%params[8]
-subprocess.call(cmd, shell=True)
-print(cmd)
-cmd="echo $BOXSIZE"
-subprocess.call(cmd, shell=True)
-print(cmd)
-cmd="export N=%s"%params[9]
-subprocess.call(cmd, shell=True)
-print(cmd)
 
-cmd="echo $N"
-subprocess.call(cmd, shell=True)
-print(cmd)
+#cmd="export BOXSIZE=%s"%params[8]
+#subprocess.call(cmd, shell=True)
+#print(cmd)
+#cmd="echo $BOXSIZE"
+#subprocess.call(cmd, shell=True)
+#print(cmd)
+#cmd="export N=%s"%params[9]
+#subprocess.call(cmd, shell=True)
+#print(cmd)
+
+
+
+
+BOXSIZE=os.environ["BOXSIZE"] = params[8]
+print(BOXSIZE)
+#subprocess.call(BOXSIZE, shell=True)
+#echo "$BOXSIZE"
+
+
+
+
+
+
+#cmd="echo $N"
+#subprocess.call(cmd, shell=True)
+#print(cmd)
 # Set ics
 d2z = open('parameterfiles/tempParam.d2z', 'r')
 d2zlines = d2z.readlines()

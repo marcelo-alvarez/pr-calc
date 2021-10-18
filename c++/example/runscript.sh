@@ -23,9 +23,10 @@ python setParams.py globalParams.ini
 seed=18937
 #Generate p(k) based on the cosmo params set above
 python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py
+
 #read in p(k)
 #Still need to read in thee new pk file
-pkfile=wmap5_0_m.pk   #new pk file is pk.tab
+pkfile=pkfile.txt     #wmap5_0_m.pk   #new pk file is pk.tab
 
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 
@@ -48,5 +49,6 @@ mybanner "Output angular power spectrum to file"
 
 # show the ksz map and output it to a pdf file
 mybanner "Show ksz map"
+
 /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/scripts/showmap.py maps/test.kszmap test.kszmap.pdf
 
