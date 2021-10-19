@@ -12,8 +12,11 @@ from scipy.integrate import quad
 from colossus.lss import mass_function
 import matplotlib.pyplot as plt
 import pickle
+import sys
 
-with open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col', 'rb') as handle:
+''' This file uses the current cosmology to compute the matter power spectrum and is run as python Pk.py param.col '''
+
+with open(sys.argv[1], 'rb') as handle:
     b = pickle.load(handle)
 
 # Variables + cosmology
@@ -29,4 +32,4 @@ k = k * h
 Pk = Pk / h**3
 
 pkfile = np.column_stack([k, Pk])
-np.savetxt("pkfile.txt", pkfile, fmt=['%1.7e','%1.7e'])
+np.savetxt("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/ICs/pkfile.txt", pkfile, fmt=['%1.7e','%1.7e'])
