@@ -18,11 +18,11 @@ fi
 
 source ../../scripts/banner.sh
 #set cosmo params and params for d2z, fsm, ics etc
-python setParams.py globalParams.ini
+python ../../py/setParams.py globalParams.ini
 
 seed=18937
 #Generate p(k) based on the cosmo params set above
-python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py
+python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col
 
 #read in p(k)
 #Still need to read in thee new pk file
