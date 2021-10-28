@@ -13,7 +13,6 @@ cd $SLURM_SUBMIT_DIR
 #Turn off implicit threadaing in Python, R
 export OMP_NUM_THREADS=1
 
-#import sys
 module load python
 module load gsl
 

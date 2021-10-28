@@ -20,13 +20,20 @@ source ../../scripts/banner.sh
 #set cosmo params and params for d2z, fsm, ics etc
 python ../../py/setParams.py globalParams.ini
 
+#read -r BOXSIZE=$(python ../../py/setParams.py globalParams.ini)
+echo $BOXSIZE
+
 seed=18937
+
 #Generate p(k) based on the cosmo params set above
 python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col
 
+#echo $BOXSIZE
+#read -r BOXSIZE=$(python ../../py/setParams.py globalParams.ini)
+#echo $BOXSIZE
+
 #read in p(k)
-#Still need to read in thee new pk file
-pkfile=pkfile.txt     #wmap5_0_m.pk   #new pk file is pk.tab
+pkfile=pkfile.txt     #wmap5_0_m.pk  
 
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 

@@ -23,7 +23,6 @@ srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b $box -n
 #replace.pl BOXSIZE_REPLACE $box parameterfiles/param.d2z
 #replace.pl NGRID_REPLACE $ngrid parameterfiles/param.d2z
 
-
 for mmin in 2e9 3e9 4e9; do
         for zeta in 50 75 100; do
 		echo writing out zreion tables

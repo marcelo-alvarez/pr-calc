@@ -29,8 +29,9 @@ for line in lines:
             names.append(name)
 
 
-print('The names of all parameters in the global file are:')
-print(names, params)
+#print('The names of all parameters in the global file are:')
+#print(names, params)
+
 #Set cosmology
 cosmoparams = {names[i]:params[i] for i in range(7)}
 with open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col', 'wb') as handle:
@@ -59,32 +60,19 @@ for line in icslines:
         
 ics_out.close()
 
-#cmd="export BOXSIZE=%s"%params[8]
-#subprocess.call(cmd, shell=True)
-#print(cmd)
-#cmd="echo $BOXSIZE"
-#subprocess.call(cmd, shell=True)
-#print(cmd)
-#cmd="export N=%s"%params[9]
-#subprocess.call(cmd, shell=True)
-#print(cmd)
+# Set environment variables
+os.environ['BOXSIZE'] = params[8]
+#os.environ['API_PASSWORD'] = 'secret'
 
-
-
-
-BOXSIZE=os.environ["BOXSIZE"] = params[8]
+# Get environment variables
+BOXSIZE = os.getenv('BOXSIZE')
+#PASSWORD = os.environ.get('API_PASSWORD')
 print(BOXSIZE)
+cmd="export BOXSIZE"
+subprocess.call(cmd, shell=True)
+#export BOXSIZE=os.environ[piarams[8]]
 #subprocess.call(BOXSIZE, shell=True)
-#echo "$BOXSIZE"
 
-
-
-
-
-
-#cmd="echo $N"
-#subprocess.call(cmd, shell=True)
-#print(cmd)
 # Set ics
 d2z = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/tempParam.d2z', 'r')
 d2zlines = d2z.readlines()
