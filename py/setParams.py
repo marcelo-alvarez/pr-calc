@@ -61,17 +61,20 @@ for line in icslines:
 ics_out.close()
 
 # Set environment variables
-os.environ['BOXSIZE'] = params[8]
-#os.environ['API_PASSWORD'] = 'secret'
+os.environ['NN'] = str(params[9])
+os.environ['BOXSIZE'] = str(params[8])
+#os.environ['NN'] = str(params[9])
 
 # Get environment variables
 BOXSIZE = os.getenv('BOXSIZE')
-#PASSWORD = os.environ.get('API_PASSWORD')
+NN = os.getenv('NN')
 print(BOXSIZE)
-cmd="export BOXSIZE"
-subprocess.call(cmd, shell=True)
-#export BOXSIZE=os.environ[piarams[8]]
-#subprocess.call(BOXSIZE, shell=True)
+print(NN)
+cmd="export BOXSIZE=params[8]"
+subprocess.run(cmd, shell=True, check=True)
+cmd2="export NN=params[9]"
+subprocess.run(cmd2, shell=True, check=True)
+#subprocess.call(cmd2, shell=True)
 
 # Set ics
 d2z = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/tempParam.d2z', 'r')

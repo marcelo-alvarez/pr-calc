@@ -1,12 +1,21 @@
+#!/usr/bin/env python
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import sys
+
+''' This file performs the non bitwise test and is run as:
+python setParams.py sys.argv[1] sys.argv[2] (--which are the 2 ksz_cl.txt files) sys.argv[3] sys.argv[4] (--whicc hare the 2 .history files) sys.aargv[5] sys.argv[6] (-- which are the 2 .kszmap files '''
+
 
 #power spectrum percentage differences
-wmappkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/newtest.ksz_cl.txt', sep='\s+', header=None)
+#wmappkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/newtest.ksz_cl.txt', sep='\s+', header=None)
+wmappkfile = pd.read_csv(sys.argv[1], sep='\s+', header=None)
 wmappkfile.columns = ['ell', 'cll', 'dell']
 
-colpkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/test.ksz_cl.txt', sep='\s+', header=None)
+#colpkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/test.ksz_cl.txt', sep='\s+', header=None)
+colpkfile = pd.read_csv(sys.argv[2], sep='\s+', header=None)
 colpkfile.columns = ['ell', 'cll', 'dell']
 
 plt.plot(colpkfile['ell'], ((colpkfile['dell'] - wmappkfile['dell']) / wmappkfile['dell']), 'r', label='Colossus p(k)')
@@ -40,10 +49,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-wmappkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/output/newtest.history', sep='\s+', header=None)
+#wmappkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/output/newtest.history', sep='\s+', header=None)
+wmappkfile = pd.read_csv(sys.argv[3], sep='\s+', header=None)
 wmappkfile.columns = ['z', 'chi', 'fcoll']
 
-colpkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/output/test.history', sep='\s+', header=None)
+#colpkfile = pd.read_csv('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/output/test.history', sep='\s+', header=None)
+colpkfile = pd.read_csv(sys.argv[4], sep='\s+', header=None)
 colpkfile.columns = ['z', 'chi', 'fcoll']
 
 plt.plot(colpkfile['z'], ((colpkfile['chi'] - wmappkfile['chi']) / wmappkfile['chi']), 'r', label='Colossus p(k)')
@@ -107,8 +118,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-mapfile = open("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/maps/test.kszmap","rb")
-mapfile2 = open("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/maps/newtest.kszmap","rb")
+#mapfile = open("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/maps/test.kszmap","rb")
+#mapfile2 = open("/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/maps/newtest.kszmap","rb")
+mapfile = open(sys.argv[5],"rb")
+mapfile2 = open(sys.argv[6],"rb")
 
 # Read size and Field of view
 n = np.fromfile(mapfile, dtype=np.int32, count=2)

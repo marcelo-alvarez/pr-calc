@@ -7,9 +7,12 @@ module load gsl
 bin=../bin
 nprocs=$1
 
-mmin=3e9
-zeta=100
-lambda=300
+mmin=3.97356e+09
+#3e9
+zeta=32.8968
+#100
+lambda=317.055
+#300
 
 if [ ! $nprocs > 0 ] ; then
     echo "nprocs = $nprocs not > 0, exiting"
@@ -20,17 +23,16 @@ source ../../scripts/banner.sh
 #set cosmo params and params for d2z, fsm, ics etc
 python ../../py/setParams.py globalParams.ini
 
-#read -r BOXSIZE=$(python ../../py/setParams.py globalParams.ini)
 echo $BOXSIZE
+read -r N<<<$(python ../../py/setParams.py globalParams.ini)
+read -r BOXSIZE<<<$(python ../../py/setParams.py globalParams.ini)
 
+echo $N   
+echo $BOXSIZE 
 seed=18937
 
 #Generate p(k) based on the cosmo params set above
 python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col
-
-#echo $BOXSIZE
-#read -r BOXSIZE=$(python ../../py/setParams.py globalParams.ini)
-#echo $BOXSIZE
 
 #read in p(k)
 pkfile=pkfile.txt     #wmap5_0_m.pk  
@@ -38,7 +40,7 @@ pkfile=pkfile.txt     #wmap5_0_m.pk
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 
 mybanner "Testing initial conditions"
-srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b 1e3 -n 512 -v -s $seed
+srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b $BOXSIZE -n 512 -v -s $seed
 
 mybanner "Testing delta2zreion"
 echo writing out zreion tables 
