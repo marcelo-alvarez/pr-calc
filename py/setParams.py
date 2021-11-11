@@ -34,13 +34,13 @@ for line in lines:
 
 #Set cosmology
 cosmoparams = {names[i]:params[i] for i in range(7)}
-with open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col', 'wb') as handle:
+with open('../c++/example/parameterfiles/param.col', 'wb') as handle:
     pickle.dump(cosmoparams, handle)
     
 # Set ics
-ics = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/tempParam.ics', 'r')
+ics = open('../c++/example/parameterfiles/tempParam.ics', 'r')
 icslines = ics.readlines()
-ics_out = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.ics', 'w')
+ics_out = open('../c++/example/parameterfiles/param.ics', 'w')
 paramnums_ics=[2]
 
 # Write out the parameter file for ics
@@ -77,9 +77,9 @@ subprocess.run(cmd2, shell=True, check=True)
 #subprocess.call(cmd2, shell=True)
 
 # Set ics
-d2z = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/tempParam.d2z', 'r')
+d2z = open('../c++/example/parameterfiles/tempParam.d2z', 'r')
 d2zlines = d2z.readlines()
-d2z_out = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.d2z', 'w')
+d2z_out = open('../c++/example/parameterfiles/param.d2z', 'w')
 
 # Write out the parameter file for d2z
 for line in d2zlines:
@@ -121,9 +121,9 @@ for line in d2zlines:
 d2z_out.close()
 
 # Set ics
-fsm = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/tempParam.fsm', 'r')
+fsm = open('../c++/example/parameterfiles/tempParam.fsm', 'r')
 fsmlines = fsm.readlines()
-fsm_out = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.fsm', 'w')
+fsm_out = open('../c++/example/parameterfiles/param.fsm', 'w')
 
 # Write out the parameter file for d2z
 for line in fsmlines:
@@ -176,9 +176,9 @@ fsm_out.close()
 
 
 # Set ics
-lmb = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/tempParam.lmb', 'r')
+lmb = open('../c++/example/parameterfiles/tempParam.lmb', 'r')
 lmblines = lmb.readlines()
-lmb_out = open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.lmb', 'w')
+lmb_out = open('../c++/example/parameterfiles/param.lmb', 'w')
 
 # Write out the parameter file for d2z
 for line in lmblines:

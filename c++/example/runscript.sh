@@ -32,7 +32,7 @@ echo $BOXSIZE
 seed=18937
 
 #Generate p(k) based on the cosmo params set above
-python /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/py/tables/Pk.py /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col
+python ../../py/tables/Pk.py parameterfiles/param.col
 
 #read in p(k)
 pkfile=pkfile.txt     #wmap5_0_m.pk  
