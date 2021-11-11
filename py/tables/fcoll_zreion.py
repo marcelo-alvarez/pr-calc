@@ -15,7 +15,7 @@ from colossus.lss import mass_function
 import matplotlib.pyplot as plt
 import pickle
 
-with open('/global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/parameterfiles/param.col', 'rb') as handle:
+with open('../../c++/example/parameterfiles/param.col', 'rb') as handle:
     b = pickle.load(handle)
 
 print(b)
