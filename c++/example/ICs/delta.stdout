@@ -1,4 +1,0 @@
-
- Command line: /global/cscratch1/sd/ikapem/ksz-reionization/pr-calc/c++/example/../bin/ics parameterfiles/param.ics -p pkfile.txt -o delta -b 1e3 -n -v -s 18937
-
- Parameter file read...

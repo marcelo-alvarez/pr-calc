@@ -23,12 +23,12 @@ source ../../scripts/banner.sh
 #set cosmo params and params for d2z, fsm, ics etc
 python ../../py/setParams.py globalParams.ini
 
-echo $BOXSIZE
+echo boxsize before 2nd setParams.py $BOXSIZE
 read -r N<<<$(python ../../py/setParams.py globalParams.ini)
 read -r BOXSIZE<<<$(python ../../py/setParams.py globalParams.ini)
 
-echo $N   
-echo $BOXSIZE 
+echo N after 3rd setParams.py $N   
+echo boxsize after 3rd setParams.py $BOXSIZE 
 seed=18937
 
 #Generate p(k) based on the cosmo params set above
@@ -40,7 +40,7 @@ pkfile=pkfile.txt     #wmap5_0_m.pk
 mybanner "RFAST TEST WITH NPROCS = $nprocs"
 
 mybanner "Testing initial conditions"
-srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b $BOXSIZE -n 512 -v -s $seed
+srun -n $nprocs $bin/ics parameterfiles/param.ics -p $pkfile -o delta -b $BOXSIZE -n $N -v -s $seed
 
 mybanner "Testing delta2zreion"
 echo writing out zreion tables 

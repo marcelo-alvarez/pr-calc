@@ -28,10 +28,6 @@ for line in lines:
             params.append(param)
             names.append(name)
 
-
-#print('The names of all parameters in the global file are:')
-#print(names, params)
-
 #Set cosmology
 cosmoparams = {names[i]:params[i] for i in range(7)}
 with open('../../c++/example/parameterfiles/param.col', 'wb') as handle:
@@ -60,21 +56,10 @@ for line in icslines:
         
 ics_out.close()
 
-# Set environment variables
-os.environ['NN'] = str(params[9])
-os.environ['BOXSIZE'] = str(params[8])
-#os.environ['NN'] = str(params[9])
-
-# Get environment variables
-BOXSIZE = os.getenv('BOXSIZE')
-NN = os.getenv('NN')
-print(BOXSIZE)
-print(NN)
-cmd="export BOXSIZE=params[8]"
-subprocess.run(cmd, shell=True, check=True)
-cmd2="export NN=params[9]"
-subprocess.run(cmd2, shell=True, check=True)
-#subprocess.call(cmd2, shell=True)
+# print box size and resolution for external use by calling script
+boxsize = str(params[8])
+Nboxres = str(params[9])
+print(boxsize, Nboxres)
 
 # Set ics
 d2z = open('../../c++/example/parameterfiles/tempParam.d2z', 'r')

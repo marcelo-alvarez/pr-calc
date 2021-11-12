@@ -65,7 +65,7 @@
 
 
 # (a) Number of compile threads
-ncompile_threads=4
+ncompile_threads=16
 
 # (b) MPI compilers
 mpicxx=CC
