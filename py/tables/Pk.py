@@ -32,4 +32,4 @@ k = k * h
 Pk = Pk / h**3
 
 pkfile = np.column_stack([k, Pk])
-np.savetxt(np.savetxt("../../c++/example/ICs/pkfile.txt", pkfile, fmt=['%1.7e','%1.7e'])
+np.savetxt("../../c++/example/ICs/pkfile.txt", pkfile, fmt=['%1.7e','%1.7e'])
