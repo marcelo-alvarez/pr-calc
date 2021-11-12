@@ -15,11 +15,12 @@ from colossus.lss import mass_function
 import matplotlib.pyplot as plt
 import pickle
 
-with open('../../c++/example/parameterfiles/param.col', 'rb') as handle:
+with open(sys.argv[1], 'rb') as handle:
     b = pickle.load(handle)
 
-print(b)
-print(b["flat"])
+#print(b)
+#print(b["flat"])
+
 # Variables + cosmology
 
 #we set our own cosmology
@@ -29,15 +30,14 @@ h              = cosmo.H0 / 100.
 
 # Mmin and zeta
 
-Mmin_Msun      = float(sys.argv[1]) #Mmin in Msun
-print(Mmin_Msun, 'Mmin value as used in the python code')
+Mmin_Msun      = float(sys.argv[2]) #Mmin in Msun
 Mmax           = 1E15     
-zeta           = float(sys.argv[2])
+zeta           = float(sys.argv[3])
 
 # create grid of delta_R and R and the zreion table
 # can mess with the grid later but an initial guess follows
-nR             = 100
-ndelta_R       = 101 # odd ndelta_R for a delta_R=0 entry with symmetric range
+nR             = int(sys.argv[4])
+ndelta_R       = int(sys.argv[5])
 Rvalsmin       = 1.0
 Rvalsmax       = 1e3
 delta_Rmin     = -1

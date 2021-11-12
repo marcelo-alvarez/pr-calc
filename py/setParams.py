@@ -4,12 +4,18 @@ import pickle
 import sys
 import subprocess
 import os
-''' This file sets the colossus parameters and writes the param files for pr-calc. It requires a global parameter ini file and is run as:
+''' 
+This file sets the colossus parameters and writes the param files for pr-calc. 
+It requires the global parameter ini file and path of the output parameter
+files be provided on the command line. 
 
-python setParams.py ../c++/example/globalParams.ini '''
+It is run as, e.g.:
+  python setParams.py parameterfiles/globalParams.ini parameterfiles
+'''
 
-
+# parse command line arguments 
 inifile=open(sys.argv[1], 'r')
+paramdir=sys.argv[2]+'/'
 
 # Reading the inifile
 lines = inifile.readlines()
@@ -30,13 +36,13 @@ for line in lines:
 
 #Set cosmology
 cosmoparams = {names[i]:params[i] for i in range(7)}
-with open('../../c++/example/parameterfiles/param.col', 'wb') as handle:
+with open(paramdir+'param.col', 'wb') as handle:
     pickle.dump(cosmoparams, handle)
     
 # Set ics
-ics = open('../../c++/example/parameterfiles/tempParam.ics', 'r')
+ics = open(paramdir+'tempParam.ics', 'r')
 icslines = ics.readlines()
-ics_out = open('../../c++/example/parameterfiles/param.ics', 'w')
+ics_out = open(paramdir+'param.ics', 'w')
 paramnums_ics=[2]
 
 # Write out the parameter file for ics
@@ -62,9 +68,9 @@ Nboxres = str(params[9])
 print(boxsize, Nboxres)
 
 # Set ics
-d2z = open('../../c++/example/parameterfiles/tempParam.d2z', 'r')
+d2z = open(paramdir+'tempParam.d2z', 'r')
 d2zlines = d2z.readlines()
-d2z_out = open('../../c++/example/parameterfiles/param.d2z', 'w')
+d2z_out = open(paramdir+'param.d2z', 'w')
 
 # Write out the parameter file for d2z
 for line in d2zlines:
@@ -106,9 +112,9 @@ for line in d2zlines:
 d2z_out.close()
 
 # Set ics
-fsm = open('../../c++/example/parameterfiles/tempParam.fsm', 'r')
+fsm = open(paramdir+'tempParam.fsm', 'r')
 fsmlines = fsm.readlines()
-fsm_out = open('../../c++/example/parameterfiles/param.fsm', 'w')
+fsm_out = open(paramdir+'param.fsm', 'w')
 
 # Write out the parameter file for d2z
 for line in fsmlines:
@@ -161,9 +167,9 @@ fsm_out.close()
 
 
 # Set ics
-lmb = open('../../c++/example/parameterfiles/tempParam.lmb', 'r')
+lmb = open(paramdir+'tempParam.lmb', 'r')
 lmblines = lmb.readlines()
-lmb_out = open('../../c++/example/parameterfiles/param.lmb', 'w')
+lmb_out = open(paramdir+'param.lmb', 'w')
 
 # Write out the parameter file for d2z
 for line in lmblines:

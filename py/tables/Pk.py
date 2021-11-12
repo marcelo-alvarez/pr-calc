@@ -19,6 +19,8 @@ import sys
 with open(sys.argv[1], 'rb') as handle:
     b = pickle.load(handle)
 
+pkfile=sys.argv[2]
+
 # Variables + cosmology
 #we set our own cosmology
 params         = {'flat': b["flat"], 'H0': float(b["H0"]), 'Om0': float(b["Om0"]), 'Ob0': float(b["Ob0"]), 'sigma8': float(b["sigma8"]), 'ns': float(b["ns"])}
@@ -31,5 +33,5 @@ Pk = cosmo.matterPowerSpectrum(k, z=0.0, model='eisenstein98', path=None, deriva
 k = k * h
 Pk = Pk / h**3
 
-pkfile = np.column_stack([k, Pk])
-np.savetxt("../../c++/example/ICs/pkfile.txt", pkfile, fmt=['%1.7e','%1.7e'])
+pkdata = np.column_stack([k, Pk])
+np.savetxt(pkfile, pkdata, fmt=['%1.7e','%1.7e'])
