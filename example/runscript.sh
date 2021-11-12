@@ -85,7 +85,7 @@ mybanner "Testing flat sky map"
 srun -n $nprocs $fsmbinary $fsmparams -i $rname -o $rname -v
 
 mybanner "Output angular power spectrum to file"
-python $pymap2pk $kszmap $kszcls 
+python $pymap2pk $kszmapbin $kszcls 
 
 mybanner "Show ksz map"
 python $pyshowmap $kszmapbin $kszmapimg $muKmin $muKmax ksz 
