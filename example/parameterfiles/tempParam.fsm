@@ -18,7 +18,8 @@ zInit		XX
 # This is the Reionization redshift file location.
 # The file should be the reionization field
 
-DeltaFile	./ICs/delta
+DeltaFile	XX
+#./ICs/delta
 
 # These are the parameters describing the map of tau
 

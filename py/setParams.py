@@ -10,7 +10,7 @@ It requires the global parameter ini file and path of the output parameter
 files be provided on the command line. 
 
 It is run as, e.g.:
-  python setParams.py parameterfiles/globalParams.ini parameterfiles
+  python setParams.py ../example/parameterfiles/globalParams.ini ../example/parameterfiles
 '''
 
 # parse command line arguments 
@@ -101,6 +101,8 @@ for line in d2zlines:
                 line=' '.join([splitline[0], '  ', params[10]])
             if(splitline[0]=='Rmin'):
                 line=' '.join([splitline[0], '  ', params[19]])
+            if(splitline[0]=='DeltaFile'):
+                line=' '.join([splitline[0], '  ', params[13]])
             if(splitline[0]=='Nscales'):
                 line=' '.join([splitline[0], '  ', params[20]])
 
@@ -135,6 +137,8 @@ for line in fsmlines:
                 line=' '.join([splitline[0], '  ', params[5]])
             if(splitline[0]=='ns'):
                 line=' '.join([splitline[0], '  ', params[6]])
+            if(splitline[0]=='DeltaFile'):
+                line=' '.join([splitline[0], '  ', params[13]])
             if(splitline[0]=='w'):
                 line=' '.join([splitline[0], '  ', params[7]])
             if(splitline[0]=='BoxSize'):
@@ -186,6 +190,8 @@ for line in lmblines:
                 line=' '.join([splitline[0], '  ', params[23]])
             if(splitline[0]=='zmin'):
                 line=' '.join([splitline[0], '  ', params[24]])
+            if(splitline[0]=='DeltaFile'):
+                line=' '.join([splitline[0], '  ', params[13]])
             if(splitline[0]=='zmax'):
                 line=' '.join([splitline[0], '  ', params[25]])
             if(splitline[0]=='nz'):

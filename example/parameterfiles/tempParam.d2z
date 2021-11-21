@@ -24,7 +24,8 @@ zInit		XX
 # 4*N^3 bytes. The field is the density contrast at a redshift zInit. It should
 # be linear, i.e. delta << 1 everywhere.
 
-DeltaFile	./ICs/delta
+DeltaFile	XX
+#./ICs/delta
 
 # Reionization algorithm parameters, probably don't need to change these
 

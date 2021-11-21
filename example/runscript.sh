@@ -6,7 +6,7 @@
 #
 
 # load modules bash scripting helper functions 
-module load python gls
+module load python gsl
 source $PRCALC_ROOT/scripts/helpers.sh
 
 # parse command line 

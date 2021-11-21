@@ -291,14 +291,19 @@ void WriteHistory()
     printf("\n Writing ionization history...");
 
     sprintf(fname,"%s.history",clParameters.Basename);
-    
+
     if(!(fd = fopen(fname, "w"))){
       if(myid==0) printf("\n File %s could not be opened\n\n", fname);
       MPI_Finalize();
       return;
     }
-        
-    for(int i=0;i<NHISTORY;i++) fprintf(fd,"%f %f\n",history_z[i],history[i]);
+
+    float zInit  = Parameters.zInit;
+    float omegam = Parameters.Omegam;
+    float omegal = Parameters.Omegal;
+    float w      = Parameters.w;
+    float smin   = sigma_min;
+    for(int i=0;i<NHISTORY;i++) fprintf(fd,"%f %f %f\n",history_z[i],history[i],fcoll(history_z[i], zInit, omegam, omegal, w, smin));
 
     fclose(fd);
 
@@ -306,6 +311,7 @@ void WriteHistory()
 
 
 }
+
 
 void WriteCHistory()
 {

@@ -6,7 +6,7 @@ import pandas as pd
 import sys
 
 ''' This file performs the non bitwise test and is run as:
-python setParams.py sys.argv[1] sys.argv[2] (--which are the 2 ksz_cl.txt files) sys.argv[3] sys.argv[4] (--whicc hare the 2 .history files) sys.aargv[5] sys.argv[6] (-- which are the 2 .kszmap files '''
+python nonbitwisetest.py sys.argv[1] sys.argv[2] (--which are the 2 ksz_cl.txt files) sys.argv[3] sys.argv[4] (--whicc hare the 2 .history files) sys.aargv[5] sys.argv[6] (-- which are the 2 .kszmap files '''
 
 
 #power spectrum percentage differences
