@@ -11,8 +11,8 @@ import radialprofile
 from powerspectrum import powerspectrum
 
 if len(sys.argv) != 3:
-    print '\nusage: ./map2pk.py <input map> <output cl>\n'
-    print sys.argv
+    print('\nusage: ./map2pk.py <input map> <output cl>\n')
+    print(sys.argv)
     sys.exit(2)
 
 taufile = open(sys.argv[1],"rb")
@@ -29,10 +29,10 @@ fov = np.fromfile(taufile, dtype=np.float32, count=2)
 tauimg = np.fromfile(taufile, dtype=np.float32, count=n[0]*n[1]).astype(np.float64).reshape(n)
 tauimg = tauimg[:n[0],:n[1]]
 
-print ''
-print '***** Info for file:    ',sys.argv[1]
-print 'dimensions of map are:  ',n[0],'x',n[1]
-print 'field of view is:       ',fov[0]/2./math.pi*360.,'x',fov[1]/2./math.pi*360.,' degrees'
+print('')
+print('***** Info for file:    ',sys.argv[1])
+print('dimensions of map are:  ',n[0],'x',n[1])
+print('field of view is:       ',fov[0]/2./math.pi*360.,'x',fov[1]/2./math.pi*360.,' degrees')
 
 tau_mean = tauimg.mean()
 
@@ -41,8 +41,8 @@ ti = tauimg - tauimg.mean()
 tau_var  = ti.var() 
 tau_rms  = math.sqrt(tau_var)
 
-print 'mean of tau is:         ', tau_mean
-print 'variance of tau is:     ', tau_var
+print('mean of tau is:         ', tau_mean)
+print('variance of tau is:     ', tau_var)
 
 scl = 2*math.pi / fov[0]
 
@@ -58,7 +58,7 @@ cl = fov[0]**2 * cl
 
 clll = (2 * l + 1) * cl / 4. / np.pi 
 
-print "--->", np.trapz(clll,l), tau_var
+print("--->", np.trapz(clll,l), tau_var)
 
 # l*cl/2pi is power per l-mode
 lcl = l*cl / (2*math.pi)
@@ -67,5 +67,6 @@ lcl = l*cl / (2*math.pi)
 l2cl = l * lcl 
 
 for i in range(0,tmps.shape[0]):
-    print >>clfile, l[i], clll[i], l2cl[i]
+    #print >>clfile, l[i], clll[i], l2cl[i]
+    print(l[i], clll[i], l2cl[i], file=clfile)
 

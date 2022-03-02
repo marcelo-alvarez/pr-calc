@@ -1,18 +1,21 @@
 # Cosmological parameters
 
-Omegam        0.27
-Omegal        0.73
-Omegab        0.044
-h             0.7
-ns            0.96
-sigma8        0.8
-w             -1
+Omegam        XX
+Omegal        XX
+Omegab        XX
+h             XX
+ns            XX
+sigma8        XX
+w             XX
 
 # Box size, dimension, and redshift of input density field
 
-BoxSize		4e3 # comoving box size in Mpc/h
-N		2048 # dimension of the grid
-zInit		0  # redshift of the initial density contrast field
+BoxSize		XX
+# comoving box size in Mpc/h
+N		XX
+#2048 # dimension of the grid
+zInit		XX
+# redshift of the initial density contrast field
 
 # This is the input file location.
 # The file should be the matter density contrast, delta = (rho-<rho>)/<rho>
@@ -21,12 +24,15 @@ zInit		0  # redshift of the initial density contrast field
 # 4*N^3 bytes. The field is the density contrast at a redshift zInit. It should
 # be linear, i.e. delta << 1 everywhere.
 
-DeltaFile	./ICs/delta
+DeltaFile	XX
+#./ICs/delta
 
 # Reionization algorithm parameters, probably don't need to change these
 
-Rmin		0.5 # minimum scale to smooth over in units of a cell size
-		    # 0.5 should be a good value don't need to change
-Nscales		32  # number of scales to smooth over
-		    # usually 32 is sufficient don't need to change
+Rmin		XX
+# minimum scale to smooth over in units of a cell size
+# 0.5 should be a good value don't need to change
+Nscales		XX
+# number of scales to smooth over
+# usually 32 is sufficient don't need to change
 
