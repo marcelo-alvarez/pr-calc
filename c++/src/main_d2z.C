@@ -27,9 +27,6 @@ int main(int argc, char *argv[])
   ReadParameterFile();
   int N=Parameters.N;
   Parameters.BoxSize/=Parameters.h;
-
-  // Create Float2FloatTable object for external fcoll 
-  Float2FloatTable ExternalFcoll("fcoll_table.tab");
   
   // FFTW Initialization and local sizes
   fftwf_mpi_init();
