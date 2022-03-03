@@ -140,6 +140,9 @@ export LIBS="-lfftw3f_mpi -lfftw3f -lgsl -lgslcblas -lm -lsrfftw_mpi -lsfftw_mpi
 
 mybanner "Installing pr-calc"
 
+# use automake to setup configuration and makefiles
+source makeauto.sh
+
 cd $rfast_location
 if [ $# -eq 1 ] ; then
   ./configure --prefix=$PWD
