@@ -28,6 +28,7 @@
 #include "cosmology.h"
 #include "memorytracking.h"
 #include "arrayoperations.h"
+#include "tables.h"
 
 // IO
 extern FILE *logfile;

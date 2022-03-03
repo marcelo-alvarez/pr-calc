@@ -6,6 +6,9 @@
 #define RTABLE_INITIAL 0
 #define RTABLE_FINAL 1.3e4
 
+#ifndef TABLES_H
+#define TABLES_H
+
 float Redshift2Float(float, double *);
 float Radius2Float(float, double *);
 float Wavenumber2Float(int, float, double *, double *);
@@ -19,3 +22,16 @@ void SetRedshift2TauTable(float, float, float, double *, double *);
 void SetWavenumber2P3DTable(int, double *, double *, double *, double *, double *, double *);
 void SetWavenumber2P1DTable(int, double *, double *, double *, double *);
 
+class Float2FloatTable
+{
+public: 
+  float* table; 
+  float  minval, maxval, delta;
+  int    N;
+  
+  Float2FloatTable(char* fname);
+  float Float2Float(float inval);
+
+};
+
+#endif

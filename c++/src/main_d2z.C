@@ -28,6 +28,9 @@ int main(int argc, char *argv[])
   int N=Parameters.N;
   Parameters.BoxSize/=Parameters.h;
 
+  // Create Float2FloatTable object for external fcoll 
+  Float2FloatTable ExternalFcoll("fcoll_table.tab");
+  
   // FFTW Initialization and local sizes
   fftwf_mpi_init();
   total_local_size = fftwf_mpi_local_size_3d(N,N,N/2+1,MPI_COMM_WORLD,
