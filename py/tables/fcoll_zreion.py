@@ -48,9 +48,9 @@ delta_Rvals    = np.linspace(delta_Rmin, delta_Rmax, ndelta_R)
 zreion_table   = np.zeros((nR, ndelta_R))
 
 # create grid of z and the fcoll table
-dz             = 0.5   
-zmin           = 0.0 # just for completeness
-zmax           = 20  # most reionization models we don't care about z>20 
+dz             = 0.1
+zmin           = 0.0 # match the range of internal delta2zreion tables
+zmax           = 50  # match the range of internal delta2zreion tables
 nz             = int((zmax - zmin) / dz)
 #fcoll_table    = np.zeros(nz)
 
@@ -165,7 +165,7 @@ zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zeta).as
 
 # Write tables in binaries with minimal headers easily readable in C
 
-# fcoll(z) (unconditional mass function)  ......why writing the unconditional to file?
+# fcoll(z) (unconditional mass function is needed by delta2zreion for ionization history)
 fcoll_tablefile='fcoll_table.tab'
 f = open(fcoll_tablefile,'wb')
 zrange       = np.asarray([zvals[0],zvals[-1]]).astype(np.float32)

@@ -25,9 +25,12 @@ Float2FloatTable::Float2FloatTable(char* fname){
 } 
   
 float Float2FloatTable::Float2Float(float inval){
-    
-  int bin = (inval - minval) / delta ;
-  float f = inval - (minval + bin*delta) ;
+
+  if(inval <= minval) return table[0];
+  if(inval >= maxval) return table[N-1];
+  
+  int bin = int((inval - minval) / delta) ;
+  float f = (inval - (minval + bin*delta)) / delta ;
   float outval = (1-f)*table[bin] + f*table[bin+1];
     
   return outval;
