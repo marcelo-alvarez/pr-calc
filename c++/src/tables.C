@@ -1,9 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <math.h>
 #include "tables.h"
 #include <mpi.h>
+
+Float2FloatTable::Float2FloatTable(char* fname){
+    
+  FILE *fd = fopen(fname,"rb");
+      
+  fread(&minval, 4, 1, fd);
+  fread(&maxval, 4, 1, fd);
+  fread(&N,      4, 1, fd);
+      
+  delta = (maxval - minval) / N;
+      
+  table = new float[N];
+      
+  fread(table, 4, N, fd);
+      
+  fclose(fd);
+      
+} 
+  
+float Float2FloatTable::Float2Float(float inval){
+
+  if(inval <= minval) return table[0];
+  if(inval >= maxval) return table[N-1];
+  
+  int bin = int((inval - minval) / delta) ;
+  float f = (inval - (minval + bin*delta)) / delta ;
+  float outval = (1-f)*table[bin] + f*table[bin+1];
+    
+  return outval;
+    
+}
 
 //////////////// Redshift to float //////////////////
 

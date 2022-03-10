@@ -11,7 +11,7 @@
 
    Modify Settings.<yourmachinename> to reflect the local paths to these
    libraries and include files, then do
-	./install_cal-pr <yourmachinename>
+	./install_pr-calc <yourmachinename>
 
    The executables will be located in bin/ 
 

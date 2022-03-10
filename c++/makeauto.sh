@@ -1,9 +1,11 @@
 #!/bin/bash
 
-rm -f stamp-h1 aclocal.m4 Makefile.in autoscan.log config.status configure Makefile config.log config.h
+source clean_automake.sh
+
+touch NEWS README AUTHORS ChangeLog COPYING
 
 aclocal 
-automake 
+automake --add-missing
 autoconf
 
-rm -rf aclocal.m4 autom4te.cache 
+rm -rf COPYING NEWS README AUTHORS ChangeLog
