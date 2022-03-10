@@ -30,7 +30,7 @@ h              = cosmo.H0 / 100.
 
 # Mmin and zeta
 
-Mmin_Msun      = float(sys.argv[2]) #Mmin in Msun
+Mmin_Msun      = float(sys.argv[2]) # Mmin in Msun
 Mmax           = 1E15     
 zeta           = float(sys.argv[3])
 
@@ -48,9 +48,9 @@ delta_Rvals    = np.linspace(delta_Rmin, delta_Rmax, ndelta_R)
 zreion_table   = np.zeros((nR, ndelta_R))
 
 # create grid of z and the fcoll table
-dz             = 0.5   
-zmin           = 0.0 # just for completeness
-zmax           = 20  # most reionization models we don't care about z>20 
+dz             = 0.1
+zmin           = 0.0 # match the range of internal delta2zreion tables
+zmax           = 50  # match the range of internal delta2zreion tables
 nz             = int((zmax - zmin) / dz)
 #fcoll_table    = np.zeros(nz)
 
@@ -68,7 +68,7 @@ zvals3d, Rvals3d, delta_Rvals3d = np.meshgrid(zvals,   Rvals,   delta_Rvals, ind
 
 # convert Mmin to Rmin
 Rmin_Mpc       = (3*Mmin_Msun/4/np.pi/rho_Mpc)**(1./3.)   #R=(3M/4 pi)**1/3
-Rmin           = Rmin_Mpc*h # Rmin is used by colussus and is in Msun/h
+Rmin           = Rmin_Mpc*h # Rmin is used by colussus and is in Mpc/h
 
 dRzero_index   = int((ndelta_R+1)/2)-1
 
@@ -96,6 +96,13 @@ def ccfPS(z, R, delta_R):
     return f
 ccfPS = np.vectorize(ccfPS)
 
+def ucfPS(z):
+    delta_c   = peaks.collapseOverdensity(corrections = True,z = z)
+    sigma_min = cosmo.sigma(Rmin, z) #Rmin in Mpc/h
+    arg       = (delta_c / (np.sqrt(2.*sigma_min**2)))
+    f         = erfc(arg)
+    return f
+ucfPS = np.vectorize(ucfPS)
 
 # Function to compute unconditional fcoll from colossus for a given hmf model and mass definition
 
@@ -149,10 +156,12 @@ zreion = np.vectorize(zreion)
 # tables for fcoll(z)
 #   these are the unconditional collapsed fractions for PS 
 #   as well as that for the specified hmf model
-uncond_fcoll   = ucf(zvals,hmf_model,hmf_mdef).astype(np.float32)
-uncond_fcollPS = ucf(zvals,'press74','fof').astype(np.float32)
-ucf_interp     = interp1d(zvals, uncond_fcoll)
-ucfPS_interp   = interp1d(zvals, uncond_fcollPS)
+uncond_fcoll    = ucf(zvals,hmf_model,hmf_mdef).astype(np.float32)
+uncond_fcollPS  = ucf(zvals,'press74','fof').astype(np.float32)
+uncond_fcollPSa = ucfPS(zvals).astype(np.float32)
+ucf_interp      = interp1d(zvals, uncond_fcoll)
+ucfPS_interp    = interp1d(zvals, uncond_fcollPS)
+ucfPSa_interp   = interp1d(zvals, uncond_fcollPSa)
 
 
 # Populate zreion table
@@ -165,12 +174,23 @@ zreion_table = zreion(Rvals2d, delta_Rvals2d, ucf_interp, ucfPS_interp, zeta).as
 
 # Write tables in binaries with minimal headers easily readable in C
 
-# fcoll(z) (unconditional mass function)  ......why writing the unconditional to file?
+# fcoll(z) (unconditional mass function is needed by delta2zreion for ionization history)
 fcoll_tablefile='fcoll_table.tab'
 f = open(fcoll_tablefile,'wb')
 zrange       = np.asarray([zvals[0],zvals[-1]]).astype(np.float32)
 dim          = np.asarray([len(zvals)]).astype(np.int32)
 fcoll_table  = uncond_fcoll.astype(np.float32)
+zrange.tofile(f)
+dim.tofile(f)
+fcoll_table.tofile(f)
+f.close()
+
+# fcollPS(z) (unconditional mass function from analytical formula)
+fcoll_tablefile='fcollPSa_table.tab'
+f = open(fcoll_tablefile,'wb')
+zrange       = np.asarray([zvals[0],zvals[-1]]).astype(np.float32)
+dim          = np.asarray([len(zvals)]).astype(np.int32)
+fcoll_table  = uncond_fcollPSa.astype(np.float32)
 zrange.tofile(f)
 dim.tofile(f)
 fcoll_table.tofile(f)

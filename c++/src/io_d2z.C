@@ -298,12 +298,13 @@ void WriteHistory()
       return;
     }
 
+    Float2FloatTable ExternalFcoll("fcoll_table.tab");
     float zInit  = Parameters.zInit;
     float omegam = Parameters.Omegam;
     float omegal = Parameters.Omegal;
     float w      = Parameters.w;
     float smin   = sigma_min;
-    for(int i=0;i<NHISTORY;i++) fprintf(fd,"%f %f %f\n",history_z[i],history[i],fcoll(history_z[i], zInit, omegam, omegal, w, smin));
+    for(int i=0;i<NHISTORY;i++) fprintf(fd,"%e %e %e %e\n",history_z[i],history[i],ExternalFcoll.Float2Float(history_z[i]),fcoll(history_z[i], zInit, omegam, omegal, w, smin));
 
     fclose(fd);
 

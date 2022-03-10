@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   ReadParameterFile();
   int N=Parameters.N;
   Parameters.BoxSize/=Parameters.h;
-
+  
   // FFTW Initialization and local sizes
   fftwf_mpi_init();
   total_local_size = fftwf_mpi_local_size_3d(N,N,N/2+1,MPI_COMM_WORLD,

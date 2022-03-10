@@ -52,11 +52,7 @@ void GetCHistory(){
   float rmfp   = clParameters.Rmax;
   float zeta   = clParameters.zeta;
 
-  float zInit  = Parameters.zInit;
-  float omegam = Parameters.Omegam;
-  float omegal = Parameters.Omegal;
-  float w      = Parameters.w;
-  float smin   = sigma_min;
+  Float2FloatTable ExternalFcoll("fcoll_table.tab");
 
   chistory[0]=0.;
   for(int i=1;i<NCHISTORY;i++){
@@ -66,8 +62,9 @@ void GetCHistory(){
     float z1 = CHISTORY_INITIAL+    i*dzchistory;
     float z2 = CHISTORY_INITIAL+(i+1)*dzchistory;
 
-    float f1 = fcoll(z1, zInit, omegam, omegal, w, smin);
-    float f2 = fcoll(z2, zInit, omegam, omegal, w, smin);
+    float f1 = ExternalFcoll.Float2Float(z1);
+    float f2 = ExternalFcoll.Float2Float(z2);
+    
     float df = f2-f1;
 
     float rb = BubbleMFP(x1);
