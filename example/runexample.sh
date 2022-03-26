@@ -18,16 +18,13 @@ if [ ! $nprocs > 0 ] ; then
     exit
 fi
 
-# set run name 
-rname=$boxsize\_$Nboxres\_$lambda\_$zeta\_$mmin
-
 # set parameters 
 mmin=2e9    # minimum source halo mass in Msun
 zeta=30     # ionizing efficiency 
 lambda=140  # mean free path in Mpc/h
 seed=18937  # set the random seed for the ICs
-nR=100      # number of R bins in zreion table 
-ndeltaR=101 # number of delta_R bins in zreion table (not used currently)
+nR=10       # number of R bins in zreion table 
+ndeltaR=11  # number of delta_R bins in zreion table (not used currently)
 muKmin=-10  # minimum of kSZ map image colorbar in muK
 muKmax=10   # maximum of kSZ map image colorbar in muK
 
@@ -64,31 +61,34 @@ fsmparams=$paramdir/param.fsm                  # flat sky map parameter file
 # data file names 
 pkfile=pkfile.txt                              # P(k) file is $PWD/ICs/$pkfile
 deltafile=delta                                # ICs data file is $PWD/ICs/$deltafile
-kszmapbin=$rundir/maps/$rname.kszmap           # kSZ map 
-kszcls=$rundir/$rname.ksz_cl.txt               # kSZ angular power spectrum
-kszmapimg=$rundir/maps/$rname                  # kSZ map pdf  
 
-printf "--- Setting cosmo params and writing parameter files"
+printf "%s\n" "--- Setting cosmo params and writing parameter files"
 read -r boxsize Nboxres <<< $(python $pysetparams $iniparams $paramdir)
 
-printf "--- Generating linear power spectrum at z=0"
+# set run name
+rname=$boxsize\_$Nboxres\_$lambda\_$zeta\_$mmin
+
+printf "%s\n" "--- Generating linear power spectrum at z=0"
 python $pytable $colparams $icsdir/$pkfile 
 
-printf "--- Generating initial conditions"
+printf "%s\n" "--- Generating initial conditions"
 srun -n $nprocs $icsbinary $icsparams -p $pkfile -o $deltafile -b $boxsize -n $Nboxres -v -s $seed
 
-printf "--- Generating zreion tables"
+printf "%s\n" "--- Generating zreion tables"
 python $pyfcoll $colparams $mmin $zeta $nR $ndeltaR
 
-printf "--- Running delta2zreion"
+printf "%s\n" "--- Running delta2zreion"
 srun -n $nprocs $d2zbinary $d2zparams -f $rname -m $mmin -z $zeta -r $lambda -v
 
-printf "--- Testing flat sky map"
+printf "%s\n" "--- Testing flat sky map"
 srun -n $nprocs $fsmbinary $fsmparams -i $rname -o $rname -v
 
-printf "--- Output angular power spectrum to file"
-python $pymap2pk $kszmapbin $kszcls 
+printf "%s\n" "--- Output angular power spectrum to file"
+kszmapbin=$rundir/maps/$rname.kszmap
+kszcls=$rundir/$rname.ksz_cl.txt
+python $pymap2pk $kszmapbin $kszcls
 
-printf "--- Show ksz map"
-python $pyshowmap $kszmapbin $kszmapimg $muKmin $muKmax ksz 
+printf "%s\n" "--- Show ksz map"
+kszmapimg=$rundir/maps/$rname
+python $pyshowmap $kszmapbin $kszmapimg $muKmin $muKmax ksz
 
