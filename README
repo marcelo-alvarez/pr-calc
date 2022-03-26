@@ -1,11 +1,8 @@
-=======
-pr-calc
-=======
-
 Introduction
 ------------
 
-Package for generating reionization histories, based on Alvarez & Abel (2010). 
+Package for generating reionization histories and synthetic sky maps based on the algorithm in 
+Alvarez, M. A. and Abel, T., 2012, ApJ, 747, 126
 
 Compilation
 -----------
