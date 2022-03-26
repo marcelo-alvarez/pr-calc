@@ -17,15 +17,15 @@ if [ ! $nprocs > 0 ] ; then
 fi
 
 # set run name 
-rname=$boxsize\_$Nboxres\_$lambda\_$zeta\_$mmin
+rname=WmapPkFile
 
 # set parameters 
-mmin=2e9    # 3e9 Msun/h in Msun for h = ? 
-zeta=30     # setting zeta to this value because ?
-lambda=140  # setting lambda to this value because ?
+mmin=3e9 
+zeta=100     
+lambda=300   
 seed=18937       # set the random seed for the ICs
-nR=100            # number of R bins in zreion table 
-ndeltaR=101       # number of delta_R bins in zreion table 
+nR=10            # number of R bins in zreion table 
+ndeltaR=11       # number of delta_R bins in zreion table 
 muKmin=-10       # minimum of kSZ map image colorbar in muK
 muKmax=10        # maximum of kSZ map image colorbar in muK
 
@@ -34,7 +34,7 @@ rundir=$PRCALC_ROOT/example                    # main run directory
 icsdir=$PRCALC_ROOT/example/ICs                # location of ICs and P(k)
 cpbindir=$PRCALC_ROOT/c++/bin                  # location of compiled binaries
 paramdir=$PRCALC_ROOT/example/parameterfiles   # location of parameter files
-pytabdir=$PRCALC_ROOT/py/tables               # location of Pk.py, fcoll_zreion.py
+pytabdir=$PRCALC_ROOT/py/tables/               # location of Pk.py, fcoll_zreion.py
 pyscrdir=$PRCALC_ROOT/scripts/                 # location of map2pk.py, showmap.py
 pydirdir=$PRCALC_ROOT/py                       # location of setParams.py
 
@@ -60,7 +60,7 @@ d2zparams=$paramdir/param.d2z                     # delta2zreion parameter file
 fsmparams=$paramdir/param.fsm                     # flat sky map parameter file 
 
 # data file names 
-pkfile=pkfile.txt                                 # P(k) file is $PWD/ICs/$pkfile
+pkfile=wmap5_0_m.pk                                # P(k) file is $PWD/ICs/$pkfile
 deltafile=delta                                   # ICs data file is $PWD/ICs/$deltafile
 kszmapbin=$rundir/maps/$rname.kszmap              # kSZ map 
 kszcls=$rundir/$rname.ksz_cl.txt                  # kSZ angular power spectrum
@@ -73,7 +73,7 @@ mybanner "Generating linear power spectrum at z=0"
 python $pytable $colparams $icsdir/$pkfile 
 
 mybanner "Generating initial conditions"
-srun -n $nprocs $icsbinary $icsparams -p $pkfile -o $deltafile -b $boxsize -n $Nboxres -v -s $seed
+srun -n $nprocs $icsbinary $icsparams -p wmap5_0_m.pk -o $deltafile -b $boxsize -n $Nboxres -v -s $seed
 
 mybanner "Generating zreion tables"
 python $pyfcoll $colparams $mmin $zeta $nR $ndeltaR

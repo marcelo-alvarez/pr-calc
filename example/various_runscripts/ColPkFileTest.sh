@@ -17,15 +17,15 @@ if [ ! $nprocs > 0 ] ; then
 fi
 
 # set run name 
-rname=$boxsize\_$Nboxres\_$lambda\_$zeta\_$mmin
+rname=ColPkFile
 
 # set parameters 
-mmin=2e9    # 3e9 Msun/h in Msun for h = ? 
-zeta=30     # setting zeta to this value because ?
-lambda=140  # setting lambda to this value because ?
+mmin=3e9 
+zeta=100     
+lambda=300   
 seed=18937       # set the random seed for the ICs
-nR=100            # number of R bins in zreion table 
-ndeltaR=101       # number of delta_R bins in zreion table 
+nR=10            # number of R bins in zreion table 
+ndeltaR=11       # number of delta_R bins in zreion table 
 muKmin=-10       # minimum of kSZ map image colorbar in muK
 muKmax=10        # maximum of kSZ map image colorbar in muK
 
@@ -34,7 +34,7 @@ rundir=$PRCALC_ROOT/example                    # main run directory
 icsdir=$PRCALC_ROOT/example/ICs                # location of ICs and P(k)
 cpbindir=$PRCALC_ROOT/c++/bin                  # location of compiled binaries
 paramdir=$PRCALC_ROOT/example/parameterfiles   # location of parameter files
-pytabdir=$PRCALC_ROOT/py/tables               # location of Pk.py, fcoll_zreion.py
+pytabdir=$PRCALC_ROOT/py/tables/               # location of Pk.py, fcoll_zreion.py
 pyscrdir=$PRCALC_ROOT/scripts/                 # location of map2pk.py, showmap.py
 pydirdir=$PRCALC_ROOT/py                       # location of setParams.py
 
