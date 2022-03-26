@@ -1,4 +1,14 @@
-1. Compilation
+=======
+pr-calc
+=======
+
+Introduction
+------------
+
+Package for generating reionization histories, based on Alvarez & Abel (2010). 
+
+Compilation
+-----------
 
    In order to compile you need to have the following installed:
       - MPI 
@@ -15,7 +25,8 @@
 
    The executables will be located in bin/ 
 
-2. Usage for the main code, delta2zreion
+Usage
+-----
 
    A) Command line options
 
@@ -40,7 +51,8 @@
       input file. See the file 'example/parameterfiles/param.zreion' for more 
       info.
 
-3. Example run
+Example
+-------
 
    There is an example script to run the codes in the package in  example/ 
       cd example
