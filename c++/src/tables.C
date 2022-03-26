@@ -45,7 +45,7 @@ float Redshift2Float(float redshift, double *table)
   float dztable = ((float)ZTABLE_FINAL - ZTABLE_INITIAL) / NZTABLE;
 
   int bin = (redshift - ZTABLE_INITIAL) / dztable ;
-  float f = redshift - (ZTABLE_INITIAL + bin*dztable) ;
+  float f = (redshift - (ZTABLE_INITIAL + bin*dztable)) / dztable;
   float value = (1-f)*table[bin] + f*table[bin+1];
 
   return value;
@@ -60,7 +60,7 @@ float Radius2Float(float radius, double *table)
   float drtable = ((float)RTABLE_FINAL - RTABLE_INITIAL) / NRTABLE;
 
   int bin = (radius - RTABLE_INITIAL) / drtable ;
-  float f = radius - (RTABLE_INITIAL + bin*drtable) ;
+  float f = (radius - (RTABLE_INITIAL + bin*drtable)) / drtable;
   float value = (1-f)*table[bin] + f*table[bin+1];
 
   return value;
@@ -100,7 +100,7 @@ float Wavenumber2FloatLogSpace(int nk, float kmin, float kmax, float k, double *
 
 
   int bin = (k-kmin) / dk ;
-  float f = k - (kmin + bin*dk) ;
+  float f = (k - (kmin + bin*dk)) / dk;
   float value = (1-f)*table[bin] + f*table[bin+1];
 
   return value;
