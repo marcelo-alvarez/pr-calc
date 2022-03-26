@@ -46,8 +46,8 @@ This will run several tasks:
 
 - Create initial linear density field (ics)
 - Generate reionization field from density field (delta2zreion)
-- Generate an all-sky map of 21-cm, tau_es, and dT_kSZ from density and reionization field (allskymap)
-- Generate a rectangular map of a portion of the sky for the same quantities in the flat sky approximation (flatskymap)
+- Generate a rectangular map of a portion of the sky of 21-cm, tau_es, and dT_kSZ from density and reionization field (flatskymap)
+- Calculate the angular power spectrum of the map
 
 In practice you will want to modify the runexample.sh script so that the $rundir is separate from the installation directory. 
 
